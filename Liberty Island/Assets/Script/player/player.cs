@@ -17,12 +17,13 @@ public class move_pulo : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        Gamer_Controler.instace.UpdateLives(vida);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        Gamer_Controler.instace.UpdateLives(vida);
         Mover();
         Jump();
     }
