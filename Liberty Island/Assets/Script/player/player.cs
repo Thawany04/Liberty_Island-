@@ -56,12 +56,18 @@ public class move_pulo : MonoBehaviour
             
         }
     }
-
+    
     private void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.layer == 3)
         {
             isJump = false;
+        }
+
+        // Verifica se o objeto colidido tem a tag "inimigo"
+        if (coll.gameObject.CompareTag("inimigo"))
+        {
+            Damager(1); // Aplica dano ao player; você pode ajustar a quantidade de dano conforme necessário
         }
     }
 
