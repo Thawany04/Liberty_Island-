@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4975315270500636930}
   m_Layer: 0
   m_Name: moeda
-  m_TagString: Untagged
+  m_TagString: coletavel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
