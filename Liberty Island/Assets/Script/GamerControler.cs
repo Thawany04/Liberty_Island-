@@ -12,7 +12,6 @@ public class Gamer_Controler : MonoBehaviour
 
     public int score, quantidade;
     public Text scoreText;
-    public TextMeshProUGUI scoreTextPro;
     
     
     public void Updatescore(int value)
@@ -31,13 +30,7 @@ public class Gamer_Controler : MonoBehaviour
     {
         vidatext.text = "x " + value.ToString();
     }
-    private void Update()
-    {
-        if (score>= 3)
-        {
-            SceneManager.LoadScene(1);
-        }
-    }
+   
 }
 
 
