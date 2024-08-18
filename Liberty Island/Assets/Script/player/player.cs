@@ -79,7 +79,7 @@ public class move_pulo : MonoBehaviour
 
         if (vida <= 0)
         {
-            //Chamar game ove
+            UnityEngine.SceneManagement.SceneManager.LoadScene("ExplosionScene");
         }
     }
 }
