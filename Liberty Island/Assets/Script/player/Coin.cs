@@ -10,7 +10,11 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Gamer_Controler.instace.Updatescore(scoreValue);
-         Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+             Gamer_Controler.instace.Updatescore(scoreValue);
+             Destroy(gameObject);
+        }
+       
     }
 }
