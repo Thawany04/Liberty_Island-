@@ -49,6 +49,7 @@ public class espinho : MonoBehaviour
             if (jogadorMovePulo != null)
             {
                 jogadorMovePulo.Damager(dano); // Aplica o dano usando o método Damager
+               
             }
         }
     }

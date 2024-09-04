@@ -10,6 +10,7 @@ public class move_pulo : MonoBehaviour
     public float forcejump;
     private bool isJump;
     public int vida;
+    private float movement;
 
     private Rigidbody2D rig;
     private Animator anim;
@@ -30,7 +31,7 @@ public class move_pulo : MonoBehaviour
 
     void Mover()
     {
-        float movement = Input.GetAxis("Horizontal");
+         movement = Input.GetAxis("Horizontal");
         rig.velocity= new Vector2(movement * speed, rig.velocity.y);
 
         if (movement > 0)
@@ -67,7 +68,8 @@ public class move_pulo : MonoBehaviour
         // Verifica se o objeto colidido tem a tag "inimigo"
         if (coll.gameObject.CompareTag("inimigo"))
         {
-            Damager(1); // Aplica dano ao player; você pode ajustar a quantidade de dano conforme necessário
+            Damager(1); //  Aplica dano ao player; você pode ajustar a quantidade de dano conforme necessário
+            rig.AddForceAtPosition(Vector2.up*5, coll.contacts[0].point,ForceMode2D.Impulse);
         }
     }
 
