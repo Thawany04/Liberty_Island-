@@ -10,7 +10,6 @@ public class move_pulo : MonoBehaviour
     public float forcejump;
     private bool isJump;
     public int vida;
-    private float movement;
 
     private Rigidbody2D rig;
     private Animator anim;
@@ -31,7 +30,7 @@ public class move_pulo : MonoBehaviour
 
     void Mover()
     {
-         movement = Input.GetAxis("Horizontal");
+        float movement = Input.GetAxis("Horizontal");
         rig.velocity= new Vector2(movement * speed, rig.velocity.y);
 
         if (movement > 0)
