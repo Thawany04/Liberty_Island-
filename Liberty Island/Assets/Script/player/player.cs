@@ -68,7 +68,7 @@ public class move_pulo : MonoBehaviour
         if (coll.gameObject.CompareTag("inimigo"))
         {
             Damager(1); //  Aplica dano ao player; você pode ajustar a quantidade de dano conforme necessário
-            rig.AddForceAtPosition(Vector2.up*5, coll.contacts[0].point,ForceMode2D.Impulse);
+            
         }
     }
 
