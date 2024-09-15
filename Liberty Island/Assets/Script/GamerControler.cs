@@ -8,20 +8,35 @@ using UnityEngine.SceneManagement;
 public class Gamer_Controler : MonoBehaviour
 {
     public Text vidatext;
-    public static Gamer_Controler instace;
+    public static Gamer_Controler Instance { get; private set; }
 
     public int score, quantidade;
     public Text scoreText;
     
-    
+    void Awake()
+    {
+        // Verifica se já existe uma instância do Gamer_Controler
+        if (Instance == null)
+        {
+            // Se não houver, define a instância atual como a única
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Mantém o GameObject entre cenas
+        }
+        else
+        {
+            // Se já houver uma instância, destrói a nova
+            Destroy(gameObject);
+        }
+    }
+
     public void Updatescore(int value)
     {
         score += value;
-        scoreText.text = $"{score} / {quantidade }";
+        scoreText.text = $"{score} / {quantidade}";
     }
+
     void Start()
     {
-        instace = this;
         quantidade = GameObject.FindGameObjectsWithTag("coletavel").Length;
         Updatescore(0);
     }
@@ -30,7 +45,4 @@ public class Gamer_Controler : MonoBehaviour
     {
         vidatext.text = "x " + value.ToString();
     }
-   
 }
-
-

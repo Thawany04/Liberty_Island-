@@ -23,7 +23,7 @@ public class move_pulo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Gamer_Controler.instace.UpdateLives(vida);
+        Gamer_Controler.Instance.UpdateLives(vida);
         Mover();
         Jump();
     }
@@ -76,7 +76,7 @@ public class move_pulo : MonoBehaviour
     public void Damager(int dmg)
     {
         vida -= dmg;
-        Gamer_Controler.instace.UpdateLives(vida);
+        Gamer_Controler.Instance.UpdateLives(vida);
 
         if (vida <= 0)
         {
