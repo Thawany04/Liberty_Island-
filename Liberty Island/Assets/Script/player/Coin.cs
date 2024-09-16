@@ -12,7 +12,7 @@ public class Coin : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-             Gamer_Controler.Instance.Updatescore(scoreValue);
+             CoinObs.OnCoin(1);
              Destroy(gameObject);
         }
        
