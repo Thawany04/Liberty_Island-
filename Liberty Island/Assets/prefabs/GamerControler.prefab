@@ -109,6 +109,7 @@ RectTransform:
   m_Children:
   - {fileID: 6437329110342201214}
   - {fileID: 6219298579495304414}
+  - {fileID: 2435133745598132757}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -345,8 +346,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 297, y: 178.4}
-  m_SizeDelta: {x: 40.8373, y: 69.5272}
+  m_AnchoredPosition: {x: 328.07452, y: 178.4}
+  m_SizeDelta: {x: 102.9865, y: 69.5272}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1347799092464785907
 CanvasRenderer:
@@ -390,6 +391,51 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
+--- !u!1 &8638374388105180238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2435133745598132757}
+  - component: {fileID: 2645739698623802336}
+  m_Layer: 0
+  m_Name: CoinManege
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2435133745598132757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638374388105180238}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -356.76337, y: -223.6726, z: -0.033939205}
+  m_LocalScale: {x: 0.41666666, y: 0.41666666, z: 0.41666666}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8950967800737704039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2645739698623802336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638374388105180238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097becb0a5f458d43a6d5606deef0f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CoinCaunt: 0
 --- !u!1 &8672406371595999602
 GameObject:
   m_ObjectHideFlags: 0
