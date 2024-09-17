@@ -181,7 +181,7 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   groundCheck: {fileID: 7796345901814614468}
   attackDelay: 0.3
-  currentHealth: 10
+  currentHealth: 6
   IsAtacking: 0
 --- !u!1 &9187979191000075741
 GameObject:
