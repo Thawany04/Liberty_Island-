@@ -10,11 +10,8 @@ public class TimeRelogio : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            TimerManager timerManager = FindObjectOfType<TimerManager>();
-            if (timerManager != null)
-            {
-                timerManager.AddTime(extraTime);
-            }
+            // Invoca o evento de tempo extra
+            TimeObs.OnTime(extraTime);
             Destroy(gameObject); // Destroi o objeto após ser coletado
         }
     }

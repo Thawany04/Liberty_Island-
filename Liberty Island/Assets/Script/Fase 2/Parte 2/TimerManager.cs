@@ -13,6 +13,7 @@ public class TimerManager : MonoBehaviour
     void Start()
     {
         currentTime = startTime;
+        UpdateTimerUI();
     }
 
     void Update()
@@ -44,5 +45,17 @@ public class TimerManager : MonoBehaviour
     public void AddTime(float extraTime)
     {
         currentTime += extraTime;
+    }
+
+    private void OnEnable()
+    {
+        // Registra o método AddTime para escutar o evento de tempo extra
+        TimeObs.timeEvent += AddTime;
+    }
+
+    private void OnDisable()
+    {
+        // Desregistra o método quando o objeto for desativado
+        TimeObs.timeEvent -= AddTime;
     }
 }
