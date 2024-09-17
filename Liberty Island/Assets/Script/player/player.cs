@@ -20,8 +20,16 @@ public class move_pulo : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        
+        // Inscrever no evento de dano de fogo
+        FireJetObs.OnFireDamage += Damager;
     }
-
+    void OnDestroy()
+    {
+        // Cancelar a inscrição no evento quando o objeto for destruído
+        FireJetObs.OnFireDamage -= Damager;
+    }
+    
     void Update()
     {
         Gamer_Controler.Instance.UpdateLives(vida);

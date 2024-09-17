@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class danofogo : MonoBehaviour
@@ -38,8 +37,8 @@ public class danofogo : MonoBehaviour
     {
         if (isFiring && collision.CompareTag("Player") && !hasDamaged)
         {
-            // Aplique dano ao jogador
-            collision.gameObject.GetComponent<move_pulo>().Damager(damage);
+            // Aplique dano ao jogador usando o sistema de eventos
+            FireJetObs.FireDamage(damage);
             hasDamaged = true; // Marca que o dano já foi aplicado
         }
     }
