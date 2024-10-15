@@ -45,7 +45,7 @@ public class espinho : MonoBehaviour
         GameObject jogador = GameObject.FindGameObjectWithTag("Player");
         if (jogador != null)
         {
-            move_pulo jogadorMovePulo = jogador.GetComponent<move_pulo>();
+            PlayerController jogadorMovePulo = jogador.GetComponent<PlayerController>();
             if (jogadorMovePulo != null)
             {
                 jogadorMovePulo.Damager(dano); // Aplica o dano usando o método Damager

@@ -74,7 +74,7 @@ public class inimigo : MonoBehaviour
         IsAtacking = true;
         yield return new WaitForSeconds(attackDelay);
         //animaçao do atack cacetete
-        move_pulo playerScript  = player.GetComponent<move_pulo>();
+        PlayerController playerScript  = player.GetComponent<PlayerController>();
         if (playerScript != null)
         {
             playerScript.Damager(1); // Certifique-se de que o método TakeDamage no script do jogador aplica dano
