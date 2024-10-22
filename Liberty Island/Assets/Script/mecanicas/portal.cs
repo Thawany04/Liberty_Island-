@@ -17,7 +17,7 @@ public class portal : MonoBehaviour
     // Método que carrega a cena após o atraso
     private void LoadScene()
     {
-        SceneManager.LoadScene("part 2 fase 2");
+        SceneManager.LoadScene("Boss");
     }
 }
 
