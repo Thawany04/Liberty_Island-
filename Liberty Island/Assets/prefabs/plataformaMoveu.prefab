@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4962823919854029758}
   - component: {fileID: 7679341652757371683}
   - component: {fileID: 7414870041229063581}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: plataformaMoveu
   m_TagString: Untagged
   m_Icon: {fileID: 0}

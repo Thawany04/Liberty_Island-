@@ -27,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7581100973322286314}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071069, w: 0.7071067}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 132.57, y: 10.3, z: 0.2156971}
-  m_LocalScale: {x: 0.28449658, y: 0.28449658, z: 0.28449658}
+  m_LocalScale: {x: 0.28449655, y: 0.28449655, z: 0.28449658}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3053325102389181903}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireDuration: 2
-  fireInterval: 3
+  fireInterval: 2
   damage: 1
 --- !u!61 &7598973743056304338
 BoxCollider2D:
@@ -173,7 +173,7 @@ Transform:
   m_GameObject: {fileID: 8904578937743136069}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071069, w: 0.7071067}
-  m_LocalPosition: {x: -8.52, y: -0.04, z: -0.75817114}
+  m_LocalPosition: {x: -9.38, y: -0.04, z: -0.75817114}
   m_LocalScale: {x: 1.0090712, y: 1.0090712, z: 1.0090712}
   m_ConstrainProportionsScale: 0
   m_Children: []
