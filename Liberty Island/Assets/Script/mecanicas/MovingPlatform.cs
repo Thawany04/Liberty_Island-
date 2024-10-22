@@ -25,7 +25,7 @@ public class MovingPlatform : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, speed * Time.deltaTime);
 
             // Verifica se a plataforma alcançou o ponto de destino
-            if (Vector3.Distance(transform.position, currentTarget.position) < 0.1f)
+            if (Vector3.Distance(transform.position, currentTarget.position) < 0.01f)
             {
                 // Passa para o próximo ponto
                 currentTargetIndex = (currentTargetIndex + 1) % waypoints.Length;

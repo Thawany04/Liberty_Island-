@@ -13,7 +13,7 @@ public class MenuController : MonoBehaviour
     // Função para iniciar o jogo
     public void StartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Fase 1");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("cutscine 1");
     }
 
     // Função para abrir as opções

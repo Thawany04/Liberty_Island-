@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/1/Boss.unity
     guid: ef2faf55eb725b44aa7e2b1dcf712b3e
+  - enabled: 1
+    path: Assets/Scenes/cutscine/cutscine 1.unity
+    guid: 2577e8c2403f81d4d94bb87482882769
   m_configObjects: {}
