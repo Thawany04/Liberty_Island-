@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class inimigo : MonoBehaviour
 {
-   public float speed = 2f; // Velocidade de movimento do inimigo
+    public float speed = 2f; // Velocidade de movimento do inimigo
     public float followRange = 5f; // Distância em que o inimigo começa a seguir o jogador
     public float attackRange = 1f; // Distância em que o inimigo começa a atacar o jogador
     public LayerMask playerLayer; // Layer do jogador
@@ -14,7 +14,7 @@ public class inimigo : MonoBehaviour
 
     private GameObject player; // Referência ao jogador
     private Rigidbody2D rb; // Referência ao Rigidbody2D do inimigo
-    public int currentHealth; // Vida atual do inimigo
+    public int vida; // Vida atual do inimigo
     private bool isGrounded; // Verifica se o inimigo está no chão
     public bool IsAtacking = false;
 
@@ -90,9 +90,9 @@ public class inimigo : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        vida -= damage;
 
-        if (currentHealth <= 0)
+        if (vida <= 0)
         {
             Die();
         }

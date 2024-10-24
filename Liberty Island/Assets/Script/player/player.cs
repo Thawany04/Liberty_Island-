@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround; // Layer do chão
     public bool isGrounded;
 
+    // Ataque com espada
+    public Vector2 attackRange = new Vector2(1.0f, 0.5f); // Ajuste conforme o tamanho da espada
+    public Vector2 attackOffset = new Vector2(0.5f, 0f); // Posição da área de colisão em relação ao jogador
+    
     // Tiro
     public GameObject bulletPrefab;
     public Transform firePoint;
@@ -24,22 +28,18 @@ public class PlayerController : MonoBehaviour
     public float attackDelay = 0.5f;  // Tempo entre o início do ataque e o final
     private bool isAttacking = false; // Para marcar quando o jogador está atacando
 
-   
     // Som
     public AudioSource audioSource; // Referência ao AudioSource
     public AudioClip jumpSound; // Som do pulo
     public AudioClip faca;
     public AudioClip corre;
-    
-   
-    
+    public AudioClip spada;
+
     void Start()
-    
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>(); // Pega o AudioSource do jogador
-        
 
         // Inscrever no evento de dano de fogo
         FireJetObs.OnFireDamage += Damager;
@@ -56,22 +56,29 @@ public class PlayerController : MonoBehaviour
         Gamer_Controler.Instance.UpdateLives(vida);
         CheckGround();
 
-        // Atirar com a tecla F, só se não estiver atacando
-        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
-        {
-            StartCoroutine(ShootCoroutine());
-        }
-
-        // Controlar o movimento
+        // Se não estiver atacando, permite movimento e pulo
         if (!isAttacking)
         {
             Mover();
             Jump();
         }
-        else
+
+        // Atirar com a tecla F
+        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
         {
-            // Manter a animação de ataque enquanto ataca
-            anim.SetInteger("Transition", 3);  // Animação de ataque
+            StartCoroutine(ShootCoroutine());
+        }
+
+        // Atacar com a espada ao pressionar "C"
+        if (Input.GetKeyDown(KeyCode.C) && !isAttacking)
+        {
+            StartCoroutine(SwordAttack());
+        }
+
+        // Controlar animação de idle se não estiver atacando e estiver parado
+        if (!isAttacking && rig.velocity.x == 0 && isGrounded)
+        {
+            anim.SetInteger("Transition", 0); // Parado
         }
     }
 
@@ -106,14 +113,12 @@ public class PlayerController : MonoBehaviour
         else if (movement == 0 && isGrounded)
         {
             anim.SetInteger("Transition", 0);  // Parado
-        
             // Parar o som de correr quando o jogador parar
             if (audioSource.isPlaying && audioSource.clip == corre)
             {
                 audioSource.Stop();
             }
         }
-        
     }
 
     void Jump()
@@ -122,21 +127,103 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded && !isAttacking)
         {
             rig.AddForce(new Vector2(0, forcejump), ForceMode2D.Impulse);
-            isJump = true; // Marcar como verdadeiro
             anim.SetInteger("Transition", 4); // Ativar animação de pulo
-            // Tocar som de pulo
-            audioSource.PlayOneShot(jumpSound);
-           
+            audioSource.PlayOneShot(jumpSound); // Tocar som de pulo
         }
+    }
+
+    void CheckGround()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+
+        if (!isGrounded)
+        {
+            anim.SetInteger("Transition", 4);  // Animação de pulo se não estiver no chão
+        }
+    }
+
+    IEnumerator SwordAttack()
+    {
+        isAttacking = true; // Marca que o jogador está atacando
+        anim.SetInteger("Transition", 2); // Ativa animação de ataque
+        audioSource.PlayOneShot(spada); // Toca o som da espada
+        rig.velocity = Vector2.zero; // Para o jogador enquanto ataca
+
+        // Espera um pouco para garantir que a animação de ataque seja visível
+        yield return new WaitForSeconds(0.3f);
+
+        // Verifica a direção do jogador
+        Vector2 adjustedAttackOffset = attackOffset;
+
+        // Se o jogador estiver virado para a esquerda (rotação ou escala negativa no eixo Y)
+        if (transform.eulerAngles.y == 180)  // Isso verifica se o jogador está virado para a esquerda
+        {
+            adjustedAttackOffset.x = -attackOffset.x;  // Inverte o offset horizontalmente
+        }
+
+        // Posição e alcance do ataque de espada
+        Vector2 attackPosition = (Vector2)transform.position + adjustedAttackOffset;
+        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPosition, attackRange, 0f);
+
+        // Verifica se atingiu algum inimigo
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            if (enemy.CompareTag("inimigo"))
+            {
+                Debug.Log("Inimigo atingido pela espada!");
+                inimigo enemyScript = enemy.GetComponent<inimigo>();
+                if (enemyScript != null)
+                {
+                    enemyScript.TakeDamage(6); // Aplica dano ao inimigo
+                }
+            }
+        }
+
+        // Aguarda o tempo de delay antes de permitir outro ataque
+        yield return new WaitForSeconds(attackDelay);
+
+        isAttacking = false; // Marca que o jogador não está mais atacando
+    }
+
+
+
+
+
+
+    IEnumerator ShootCoroutine()
+    {
+        isAttacking = true; // Marca que o jogador está atacando
+        anim.SetInteger("Transition", 3); // Ativa animação de tiro
+        audioSource.PlayOneShot(faca); // Toca o som de tiro
+
+        // Para o jogador enquanto atira
+        rig.velocity = Vector2.zero;
+
+        // Espera para garantir que a animação de tiro seja visível
+        yield return new WaitForSeconds(0.3f);
+
+        // Criar uma bala na posição de disparo
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = firePoint.right * bulletSpeed;
+        }
+
+        // Destruir a bala após bulletLifeTime segundos
+        Destroy(bullet, bulletLifeTime);
+
+        // Aguarda o tempo de delay antes de permitir outro tiro
+        yield return new WaitForSeconds(attackDelay);
+
+        isAttacking = false; // Marca que o jogador não está mais atirando
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        // Verifica se o objeto colidido tem a tag "inimigo"
         if (coll.gameObject.CompareTag("inimigo"))
         {
             Damager(1); // Aplica dano ao player; ajuste a quantidade de dano conforme necessário
-          
         }
     }
 
@@ -151,49 +238,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void CheckGround()
+    private void OnDrawGizmosSelected()
     {
-        // Verifica se o jogador está no chão
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-
-        // Atualiza a variável de pulo (isJump) com base no estado do chão
-        if (!isGrounded)
-        {
-            isJump = true;  // Marca como verdadeiro se não estiver no chão
-            anim.SetInteger("Transition", 4);  // Ativa a animação de pulo
-        }
-        else
-        {
-            isJump = false; // Reseta para falso se estiver no chão
-            anim.SetInteger("Transition", 0);  // Retorna para a animação de parada ou movimento
-        }
-    }
-
-    // Coroutine para gerenciar o ataque (tiro)
-    IEnumerator ShootCoroutine()
-    {
-        isAttacking = true; // Marca que o jogador está atacando
-        anim.SetInteger("Transition", 3); // Ativa animação de ataque
-        audioSource.PlayOneShot(faca);
-        rig.velocity = Vector2.zero; // Para o jogador enquanto ataca
-        yield return new WaitForSeconds(0.3f); // Tempo da animação de ataque
-      
-
-        // Criar uma bala na posição de disparo
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.velocity = firePoint.right * bulletSpeed;
-        }
-
-        // Destruir a bala após bulletLifeTime segundos
-        Destroy(bullet, bulletLifeTime);
-
-        // Aguarda o tempo de delay antes de permitir outro ataque
-        yield return new WaitForSeconds(attackDelay);
-
-        isAttacking = false; // Marca que o jogador não está mais atacando
-        anim.SetInteger("Transition", 0);  // Retorna para a animação de parada após o ataque
+        Gizmos.color = Color.red;
+        Vector2 attackPosition = (Vector2)transform.position + attackOffset;
+        Gizmos.DrawWireCube(attackPosition, attackRange);
     }
 }
