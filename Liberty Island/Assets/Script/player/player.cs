@@ -29,8 +29,12 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource; // Referência ao AudioSource
     public AudioClip jumpSound; // Som do pulo
     public AudioClip faca;
+    public AudioClip corre;
+    
+   
     
     void Start()
+    
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -84,24 +88,32 @@ public class PlayerController : MonoBehaviour
         // Atualiza a velocidade do jogador
         rig.velocity = new Vector2(movement * speed, rig.velocity.y);
 
-        // Controla a animação de movimento
-        if (movement > 0 && isGrounded)
+        // Controla a animação de movimento e o som de correr
+        if (movement != 0 && isGrounded)
         {
-            anim.SetInteger("Transition", 1);  // Movimento para a direita
-            transform.eulerAngles = new Vector3(0, 0, 0);
-            
+            anim.SetInteger("Transition", 1);  // Movendo (para qualquer direção)
 
-        }
-        else if (movement < 0 && isGrounded)
-        {
-            anim.SetInteger("Transition", 1);  // Movimento para a esquerda
-            transform.eulerAngles = new Vector3(0, 180, 0);
-           
+            // Define a rotação do jogador com base no movimento
+            transform.eulerAngles = movement > 0 ? new Vector3(0, 0, 0) : new Vector3(0, 180, 0);
+
+            // Tocar som de correr se o jogador estiver se movendo e no chão
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = corre;
+                audioSource.Play();
+            }
         }
         else if (movement == 0 && isGrounded)
         {
             anim.SetInteger("Transition", 0);  // Parado
+        
+            // Parar o som de correr quando o jogador parar
+            if (audioSource.isPlaying && audioSource.clip == corre)
+            {
+                audioSource.Stop();
+            }
         }
+        
     }
 
     void Jump()

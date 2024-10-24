@@ -2561,7 +2561,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f01212c84def4c04dac2c948b41f22e8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -15317,6 +15317,10 @@ PrefabInstance:
       propertyPath: faca
       value: 
       objectReference: {fileID: 8300000, guid: 3a7eac2dd428beb4696dab2dc453e280, type: 3}
+    - target: {fileID: 4426084415699120854, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
+      propertyPath: corre
+      value: 
+      objectReference: {fileID: 8300000, guid: bbe10c8736df7ac4880289a1f5e557b6, type: 3}
     - target: {fileID: 4426084415699120854, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: correndo
       value: 
