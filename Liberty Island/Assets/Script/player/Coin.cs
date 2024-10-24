@@ -7,13 +7,20 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public int scoreValue;
+    private AudioSource sound;
+
+    private void Awake()
+    {
+        sound = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
              CoinObs.OnCoin(1);
-             Destroy(gameObject);
+             sound.Play();
+             Destroy(gameObject, 0.2f);
         }
        
     }

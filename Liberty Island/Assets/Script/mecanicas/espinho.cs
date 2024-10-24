@@ -16,7 +16,9 @@ public class espinho : MonoBehaviour
         if (jogadorEmCima && Time.time - tempoUltimoDano >= intervaloDano)
         {
             AplicarDano();
+            
             tempoUltimoDano = Time.time;
+            
         }
     }
 

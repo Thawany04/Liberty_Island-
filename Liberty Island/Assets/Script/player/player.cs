@@ -24,10 +24,18 @@ public class PlayerController : MonoBehaviour
     public float attackDelay = 0.5f;  // Tempo entre o início do ataque e o final
     private bool isAttacking = false; // Para marcar quando o jogador está atacando
 
+   
+    // Som
+    public AudioSource audioSource; // Referência ao AudioSource
+    public AudioClip jumpSound; // Som do pulo
+    public AudioClip faca;
+    
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>(); // Pega o AudioSource do jogador
+        
 
         // Inscrever no evento de dano de fogo
         FireJetObs.OnFireDamage += Damager;
@@ -81,11 +89,14 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetInteger("Transition", 1);  // Movimento para a direita
             transform.eulerAngles = new Vector3(0, 0, 0);
+            
+
         }
         else if (movement < 0 && isGrounded)
         {
             anim.SetInteger("Transition", 1);  // Movimento para a esquerda
             transform.eulerAngles = new Vector3(0, 180, 0);
+           
         }
         else if (movement == 0 && isGrounded)
         {
@@ -101,6 +112,9 @@ public class PlayerController : MonoBehaviour
             rig.AddForce(new Vector2(0, forcejump), ForceMode2D.Impulse);
             isJump = true; // Marcar como verdadeiro
             anim.SetInteger("Transition", 4); // Ativar animação de pulo
+            // Tocar som de pulo
+            audioSource.PlayOneShot(jumpSound);
+           
         }
     }
 
@@ -110,6 +124,7 @@ public class PlayerController : MonoBehaviour
         if (coll.gameObject.CompareTag("inimigo"))
         {
             Damager(1); // Aplica dano ao player; ajuste a quantidade de dano conforme necessário
+          
         }
     }
 
@@ -147,8 +162,10 @@ public class PlayerController : MonoBehaviour
     {
         isAttacking = true; // Marca que o jogador está atacando
         anim.SetInteger("Transition", 3); // Ativa animação de ataque
+        audioSource.PlayOneShot(faca);
         rig.velocity = Vector2.zero; // Para o jogador enquanto ataca
         yield return new WaitForSeconds(0.3f); // Tempo da animação de ataque
+      
 
         // Criar uma bala na posição de disparo
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
