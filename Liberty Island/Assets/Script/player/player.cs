@@ -177,6 +177,16 @@ public class PlayerController : MonoBehaviour
                     enemyScript.TakeDamage(6); // Aplica dano ao inimigo
                 }
             }
+            // Adicionando lógica para o boss
+            else if (enemy.CompareTag("boss")) // Verifica se o objeto atingido é o boss
+            {
+                Debug.Log("Chefe atingido pela espada!");
+                boss2 bossScript = enemy.GetComponent<boss2>();
+                if (bossScript != null)
+                {
+                    bossScript.TakeDamage(6); // Aplica dano ao chefe
+                }
+            }
         }
 
         // Aguarda o tempo de delay antes de permitir outro ataque

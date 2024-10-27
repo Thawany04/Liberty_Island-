@@ -10,8 +10,7 @@ public class boss2 : MonoBehaviour
     public int maxHealth = 100;
     public int damage = 10;
     public int currentHealth;
-
-    public HealthBar vidaboss; // Referência à barra de vida
+    
 
     private bool isAttacking = false; // Verifica se está atacando
     private bool isEnraged = false; // Verifica se entrou no modo raivoso
@@ -28,12 +27,7 @@ public class boss2 : MonoBehaviour
         currentHealth = maxHealth;
         animator = GetComponent<Animator>(); // Referência ao Animator
         audioSource = GetComponent<AudioSource>(); // Referência ao AudioSource
-
-        // Atualiza a barra de vida no início
-        if (vidaboss != null)
-        {
-            vidaboss.UpdateHealthBar(); 
-        }
+        
     }
 
     private void Update()
@@ -135,12 +129,7 @@ public class boss2 : MonoBehaviour
         {
             Die();
         }
-
-        // Atualiza a barra de vida
-        if (vidaboss != null)
-        {
-            vidaboss.UpdateHealthBar(); // Atualiza a barra de vida sempre que o boss toma dano
-        }
+        
     }
 
     private void Enrage()
@@ -184,9 +173,6 @@ public class boss2 : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
     
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
-    }
+    
 
 }
