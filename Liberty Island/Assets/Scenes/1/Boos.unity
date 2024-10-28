@@ -1793,10 +1793,11 @@ MonoBehaviour:
   player: {fileID: 34882056}
   attackRange: 3
   speed: 2
-  maxHealth: 10
-  damage: 10
+  vida: 100
+  dano: 10
   currentHealth: 0
-  healthBarSlider: {fileID: 1146644785}
+  attackInterval: 2.5
+  barradevida: {fileID: 1146644785}
   enrageSound: {fileID: 8300000, guid: a260e53e1222dc047998ac170bf50c11, type: 3}
   attackSound: {fileID: 8300000, guid: c60dcb108f77e014898a7db3d4ceef1e, type: 3}
   walkSound: {fileID: 0}
