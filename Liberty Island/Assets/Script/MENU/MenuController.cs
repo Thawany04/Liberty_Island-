@@ -9,6 +9,7 @@ public class MenuController : MonoBehaviour
     public GameObject optionsPanel; // Referência ao painel de opções
     public GameObject controlPanel; // Referência ao painel de controle
     public GameObject creditsPanel; // Referência ao painel de créditos
+    
 
     // Função para iniciar o jogo
     public void StartGame()
