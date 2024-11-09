@@ -9,7 +9,7 @@ public class agualava : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             // Chama o método 'LoadScene' após 1 segundo de atraso
-            Invoke("LoadScene", 0.5f);
+            Invoke("LoadScene", 0.3f);
         }
     }
     
