@@ -14351,7 +14351,8 @@ Transform:
   m_LocalPosition: {x: 106.65, y: -1.034, z: 0}
   m_LocalScale: {x: 3.0159621, y: 3.0159621, z: 3.0159621}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1652328002}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &985156049
@@ -14370,10 +14371,11 @@ MonoBehaviour:
   pontoB: {fileID: 586197477}
   velocidade: 2
   player: {fileID: 365316833}
-  distanciaDeteccao: 5
+  distanciaDeteccao: 2.76
   projetilPrefab: {fileID: 6660316953339344567, guid: 6fa098c01f7ee8947ad452fbb3f97f22, type: 3}
-  pontoDeTiro: {fileID: 0}
+  pontoDeTiro: {fileID: 1652328002}
   velocidadeTiro: 10
+  intervaloAtaque: 1.5
 --- !u!50 &985156050
 Rigidbody2D:
   serializedVersion: 4
@@ -40388,6 +40390,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2333454667085687916, guid: 8dca40daad5a528489a1dbc37835bd16, type: 3}
   m_PrefabInstance: {fileID: 774455010}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1652328001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1652328002}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1652328002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652328001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.218, y: 0.142, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 985156048}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1653391549
 PrefabInstance:
   m_ObjectHideFlags: 0

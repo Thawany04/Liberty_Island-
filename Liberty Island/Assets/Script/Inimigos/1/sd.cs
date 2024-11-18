@@ -7,27 +7,50 @@ public class sd : MonoBehaviour
     public Transform pontoA;  // Primeiro ponto de patrulha
     public Transform pontoB;  // Segundo ponto de patrulha
     public float velocidade = 2f;  // Velocidade do movimento
-
     private Vector3 destinoAtual;
     private Vector3 escalaInicial;
-    
-    
+    private Animator animator;
+    private bool morto = false;
     public GameObject player;  // Referência ao jogador
     public float distanciaDeteccao = 5f;  // Distância para detectar o jogador
     public GameObject projetilPrefab;  // Prefab do projétil
     public Transform pontoDeTiro;  // Ponto de origem do projétil
     public float velocidadeTiro = 10f;  // Velocidade do projétil
+    public float intervaloAtaque = 1.5f;  // Tempo entre ataques
+
+    private bool atacando = false;         // Indica se o inimigo está no modo de ataque
+    private float contadorTempoAtaque = 0f; // Contador de tempo para controlar intervalo entre ataques
 
     void Start()
     {
         destinoAtual = pontoB.position;  // Inicia patrulhando para o ponto B
         // Armazena a escala inicial do inimigo
         escalaInicial = transform.localScale;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        Patrulhar();
+        if (morto) return;
+        
+        // Atualiza o contador de tempo de ataque
+        if (atacando)
+        {
+            contadorTempoAtaque += Time.deltaTime;
+            if (contadorTempoAtaque >= intervaloAtaque)
+            {
+                // Permite um novo ataque após o intervalo
+                atacando = false;
+                contadorTempoAtaque = 0f;
+            }
+        }
+        
+        // Se não está atacando, continua patrulhando
+        if (!atacando)
+        {
+            Patrulhar();
+        }
+
         DetectarJogador();
     }
     
@@ -47,6 +70,7 @@ public class sd : MonoBehaviour
             // Indo para a esquerda
             transform.localScale = new Vector3(-Mathf.Abs(escalaInicial.x), escalaInicial.y, escalaInicial.z);
         }
+        animator.SetBool("anda", true);
 
         // Troca de direção ao alcançar o destino
         if (Vector3.Distance(transform.position, destinoAtual) < 0.1f)
@@ -59,10 +83,19 @@ public class sd : MonoBehaviour
     {
         float distanciaAoJogador = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanciaAoJogador <= distanciaDeteccao)
+        if (distanciaAoJogador <= distanciaDeteccao && !atacando)
         {
-            // Atira se o jogador estiver no alcance
+            // Inimigo detecta o jogador e para de patrulhar para atacar
+            atacando = true;
+            animator.SetBool("anda", false);
+            animator.SetBool("atiro", true);
+            
             Atirar();
+        }
+        else if (distanciaAoJogador > distanciaDeteccao)
+        {
+            // Se o jogador está fora do alcance, continua a patrulhar
+            animator.SetBool("atiro", false);
         }
     }
     
@@ -75,5 +108,36 @@ public class sd : MonoBehaviour
         // Calcula a direção do tiro em direção ao jogador
         Vector3 direcao = (player.transform.position - pontoDeTiro.position).normalized;
         rb.velocity = direcao * velocidadeTiro;
+    }
+    
+    public void ReceberDano(int dano)
+    {
+        if (morto) return;
+
+        // Se a vida chegar a zero, o inimigo morre
+        Morrer();
+    }
+
+    void Morrer()
+    {
+        morto = true;
+        animator.SetTrigger("mort");
+
+        // Desativa a colisão e outros componentes
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
+
+        // Destrói o objeto após a animação de morte
+        Destroy(gameObject, 2f);
+    }
+
+    // Método para desenhar a área de detecção de ataque com Gizmos
+    void OnDrawGizmos()
+    {
+        // Define a cor para a área de detecção
+        Gizmos.color = Color.red;
+
+        // Desenha uma esfera que representa a área de detecção
+        Gizmos.DrawWireSphere(transform.position, distanciaDeteccao);
     }
 }
