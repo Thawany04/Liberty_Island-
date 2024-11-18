@@ -21,12 +21,19 @@ public class sd : MonoBehaviour
     private bool atacando = false;         // Indica se o inimigo está no modo de ataque
     private float contadorTempoAtaque = 0f; // Contador de tempo para controlar intervalo entre ataques
 
+    // Variáveis de vida
+    public int vida = 100;  // Vida máxima do inimigo
+    private int vidaAtual;        // Vida atual do inimigo
+
     void Start()
     {
         destinoAtual = pontoB.position;  // Inicia patrulhando para o ponto B
         // Armazena a escala inicial do inimigo
         escalaInicial = transform.localScale;
         animator = GetComponent<Animator>();
+
+        // Inicializa a vida
+        vidaAtual = vida;
     }
 
     void Update()
@@ -90,6 +97,9 @@ public class sd : MonoBehaviour
             animator.SetBool("anda", false);
             animator.SetBool("atiro", true);
             
+            // Ajusta a direção para o jogador
+            VirarParaJogador();
+
             Atirar();
         }
         else if (distanciaAoJogador > distanciaDeteccao)
@@ -109,13 +119,20 @@ public class sd : MonoBehaviour
         Vector3 direcao = (player.transform.position - pontoDeTiro.position).normalized;
         rb.velocity = direcao * velocidadeTiro;
     }
-    
+
     public void ReceberDano(int dano)
     {
         if (morto) return;
 
+        // Reduz a vida do inimigo
+        vidaAtual -= dano;
+
         // Se a vida chegar a zero, o inimigo morre
-        Morrer();
+        if (vidaAtual <= 0)
+        {
+            vidaAtual = 0;
+            Morrer();
+        }
     }
 
     void Morrer()
@@ -139,5 +156,20 @@ public class sd : MonoBehaviour
 
         // Desenha uma esfera que representa a área de detecção
         Gizmos.DrawWireSphere(transform.position, distanciaDeteccao);
+    }
+
+    void VirarParaJogador()
+    {
+        // Verifica a posição do jogador em relação ao inimigo e ajusta a escala
+        if (player.transform.position.x > transform.position.x)
+        {
+            // Jogador está à direita do inimigo
+            transform.localScale = new Vector3(Mathf.Abs(escalaInicial.x), escalaInicial.y, escalaInicial.z);
+        }
+        else
+        {
+            // Jogador está à esquerda do inimigo
+            transform.localScale = new Vector3(-Mathf.Abs(escalaInicial.x), escalaInicial.y, escalaInicial.z);
+        }
     }
 }

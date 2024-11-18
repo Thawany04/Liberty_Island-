@@ -14261,7 +14261,7 @@ GameObject:
   - component: {fileID: 985156049}
   m_Layer: 0
   m_Name: sdd
-  m_TagString: Untagged
+  m_TagString: inimigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14376,6 +14376,7 @@ MonoBehaviour:
   pontoDeTiro: {fileID: 1652328002}
   velocidadeTiro: 10
   intervaloAtaque: 1.5
+  vida: 100
 --- !u!50 &985156050
 Rigidbody2D:
   serializedVersion: 4
