@@ -23,7 +23,7 @@ public class sd : MonoBehaviour
 
     // Variáveis de vida
     public int vida = 100;  // Vida máxima do inimigo
-    private int vidaAtual;        // Vida atual do inimigo
+    public int vidaAtual;        // Vida atual do inimigo
 
     void Start()
     {
