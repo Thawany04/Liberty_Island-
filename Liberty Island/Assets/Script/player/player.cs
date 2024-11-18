@@ -142,58 +142,58 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator SwordAttack()
+   IEnumerator SwordAttack()
+{
+    isAttacking = true; // Marca que o jogador está atacando
+    anim.SetInteger("Transition", 2); // Ativa animação de ataque
+    audioSource.PlayOneShot(spada); // Toca o som da espada
+    rig.velocity = Vector2.zero; // Para o jogador enquanto ataca
+
+    // Espera um pouco para garantir que a animação de ataque seja visível
+    yield return new WaitForSeconds(0.3f);
+
+    // Verifica a direção do jogador
+    Vector2 adjustedAttackOffset = attackOffset;
+
+    // Se o jogador estiver virado para a esquerda (rotação ou escala negativa no eixo Y)
+    if (transform.eulerAngles.y == 180)  // Isso verifica se o jogador está virado para a esquerda
     {
-        isAttacking = true; // Marca que o jogador está atacando
-        anim.SetInteger("Transition", 2); // Ativa animação de ataque
-        audioSource.PlayOneShot(spada); // Toca o som da espada
-        rig.velocity = Vector2.zero; // Para o jogador enquanto ataca
-
-        // Espera um pouco para garantir que a animação de ataque seja visível
-        yield return new WaitForSeconds(0.3f);
-
-        // Verifica a direção do jogador
-        Vector2 adjustedAttackOffset = attackOffset;
-
-        // Se o jogador estiver virado para a esquerda (rotação ou escala negativa no eixo Y)
-        if (transform.eulerAngles.y == 180)  // Isso verifica se o jogador está virado para a esquerda
-        {
-            adjustedAttackOffset.x = -attackOffset.x;  // Inverte o offset horizontalmente
-        }
-
-        // Posição e alcance do ataque de espada
-        Vector2 attackPosition = (Vector2)transform.position + adjustedAttackOffset;
-        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPosition, attackRange, 0f);
-
-        // Verifica se atingiu algum inimigo
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            if (enemy.CompareTag("inimigo"))
-            {
-                Debug.Log("Inimigo atingido pela espada!");
-                inimigo enemyScript = enemy.GetComponent<inimigo>();
-                if (enemyScript != null)
-                {
-                    enemyScript.TakeDamage(6); // Aplica dano ao inimigo
-                }
-            }
-            // Adicionando lógica para o boss
-            else if (enemy.CompareTag("boss")) // Verifica se o objeto atingido é o boss
-            {
-                Debug.Log("Chefe atingido pela espada!");
-                boss2 bossScript = enemy.GetComponent<boss2>();
-                if (bossScript != null)
-                {
-                    bossScript.TakeDamage(6); // Aplica dano ao chefe
-                }
-            }
-        }
-
-        // Aguarda o tempo de delay antes de permitir outro ataque
-        yield return new WaitForSeconds(attackDelay);
-
-        isAttacking = false; // Marca que o jogador não está mais atacando
+        adjustedAttackOffset.x = -attackOffset.x;  // Inverte o offset horizontalmente
     }
+
+    // Posição e alcance do ataque de espada
+    Vector2 attackPosition = (Vector2)transform.position + adjustedAttackOffset;
+    Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPosition, attackRange, 0f);
+
+    // Verifica se atingiu algum inimigo
+    foreach (Collider2D enemy in hitEnemies)
+    {
+        if (enemy.CompareTag("inimigo"))
+        {
+            Debug.Log("Inimigo atingido pela espada!");
+            InimigoComMachado enemyScript = enemy.GetComponent<InimigoComMachado>(); // Altere aqui para InimigoComMachado
+            if (enemyScript != null)
+            {
+                enemyScript.ReceberDano(6); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
+            }
+        }
+        // Adicionando lógica para o boss
+        else if (enemy.CompareTag("boss")) // Verifica se o objeto atingido é o boss
+        {
+            Debug.Log("Chefe atingido pela espada!");
+            boss2 bossScript = enemy.GetComponent<boss2>();
+            if (bossScript != null)
+            {
+                bossScript.TakeDamage(6); // Aplica dano ao chefe
+            }
+        }
+    }
+
+    // Aguarda o tempo de delay antes de permitir outro ataque
+    yield return new WaitForSeconds(attackDelay);
+
+    isAttacking = false; // Marca que o jogador não está mais atacando
+}
 
 
 

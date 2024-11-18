@@ -2523,6 +2523,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GamerControler
       objectReference: {fileID: 0}
+    - target: {fileID: 6116816602379857569, guid: 1af50134d4f51bb48ad4edc7dce072fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8848803839167002182, guid: 1af50134d4f51bb48ad4edc7dce072fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8950967800737704039, guid: 1af50134d4f51bb48ad4edc7dce072fd, type: 3}
       propertyPath: m_Pivot.x
       value: 0

@@ -22,6 +22,9 @@ public class InimigoComMachado : MonoBehaviour
     public int vida = 100;  // Vida máxima do inimigo
     public int vidaAtual;        // Vida atual do inimigo
 
+    // Variável de dano que pode ser ajustada no Inspector
+    public int dano = 10;  // Dano causado pelo inimigo
+
     void Start()
     {
         destinoAtual = pontoB.position;  // Inicia patrulhando para o ponto B
@@ -112,6 +115,21 @@ public class InimigoComMachado : MonoBehaviour
         // Lógica para ataque com machado
         animator.SetTrigger("atac");  // Chama animação de ataque com machado
 
+        // Verificar se o jogador está na área de ataque do inimigo
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, distanciaDeteccao);
+        foreach (Collider2D col in hitPlayers)
+        {
+            if (col.CompareTag("Player"))
+            {
+                Debug.Log("Jogador atingido pelo inimigo!");
+                PlayerController playerScript = col.GetComponent<PlayerController>();
+                if (playerScript != null)
+                {
+                    playerScript.Damager(dano);  // Aplica o dano ao jogador (usando a variável dano ajustável)
+                }
+            }
+        }
+
         // Aguardando o intervalo entre os ataques
         atacando = true;
     }
@@ -122,6 +140,7 @@ public class InimigoComMachado : MonoBehaviour
 
         // Reduz a vida do inimigo
         vidaAtual -= dano;
+        Debug.Log("Vida do inimigo: " + vidaAtual);  // Exibe a vida no console para debugar
 
         // Se a vida chegar a zero, o inimigo morre
         if (vidaAtual <= 0)
@@ -130,6 +149,7 @@ public class InimigoComMachado : MonoBehaviour
             Morrer();
         }
     }
+
 
     void Morrer()
     {
@@ -141,7 +161,7 @@ public class InimigoComMachado : MonoBehaviour
         this.enabled = false;
 
         // Destrói o objeto após a animação de morte
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 1f);
     }
 
     // Método para desenhar a área de detecção de ataque com Gizmos
@@ -168,8 +188,4 @@ public class InimigoComMachado : MonoBehaviour
             transform.localScale = new Vector3(-Mathf.Abs(escalaInicial.x), escalaInicial.y, escalaInicial.z);
         }
     }
-    
-    
 }
-
-
