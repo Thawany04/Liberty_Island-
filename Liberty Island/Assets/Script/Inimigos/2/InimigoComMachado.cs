@@ -4,79 +4,172 @@ using UnityEngine;
 
 public class InimigoComMachado : MonoBehaviour
 {
-     public Transform pontoA, pontoB; // Pontos A e B para o movimento
-    public float velocidade = 3f;
-    public float distanciaDeAtaque = 1.5f; // Distância de ataque (raio de ataque)
-    public float tempoEntreAtaques = 2f; // Intervalo entre os ataques
-    private Transform jogador;
+    public Transform pontoA;  // Primeiro ponto de patrulha
+    public Transform pontoB;  // Segundo ponto de patrulha
+    public float velocidade = 2f;  // Velocidade do movimento
+    private Vector3 destinoAtual;
+    private Vector3 escalaInicial;
     private Animator animator;
-    private bool estaAtacando = false;
-    private float tempoUltimoAtaque = 0f; // Para controlar o tempo entre os ataques
+    private bool morto = false;
+    public GameObject player;  // Referência ao jogador
+    public float distanciaDeteccao = 5f;  // Distância para detectar o jogador
+    public float intervaloAtaque = 1.5f;  // Tempo entre ataques
 
-    // A área de ataque será um Trigger Collider
-    public Collider2D areaDeAtaque; // Referência à área de ataque
+    private bool atacando = false;         // Indica se o inimigo está no modo de ataque
+    private float contadorTempoAtaque = 0f; // Contador de tempo para controlar intervalo entre ataques
+
+    // Variáveis de vida
+    public int vida = 100;  // Vida máxima do inimigo
+    public int vidaAtual;        // Vida atual do inimigo
 
     void Start()
     {
-        jogador = GameObject.FindGameObjectWithTag("Jogador").transform;
+        destinoAtual = pontoB.position;  // Inicia patrulhando para o ponto B
+        escalaInicial = transform.localScale;
         animator = GetComponent<Animator>();
 
-        // Se não atribuir manualmente no Inspector, podemos buscar automaticamente
-        if (areaDeAtaque == null)
-        {
-            areaDeAtaque = GetComponent<Collider2D>();
-        }
+        // Inicializa a vida
+        vidaAtual = vida;
     }
 
     void Update()
     {
-        float distancia = Vector3.Distance(transform.position, jogador.position);
+        if (morto) return;
 
-        // Movimenta entre ponto A e B
-        if (!estaAtacando)
+        // Atualiza o contador de tempo de ataque
+        if (atacando)
         {
-            if (transform.position == pontoA.position)
-                transform.position = Vector3.MoveTowards(transform.position, pontoB.position, velocidade * Time.deltaTime);
-            else if (transform.position == pontoB.position)
-                transform.position = Vector3.MoveTowards(transform.position, pontoA.position, velocidade * Time.deltaTime);
+            contadorTempoAtaque += Time.deltaTime;
+            if (contadorTempoAtaque >= intervaloAtaque)
+            {
+                // Permite um novo ataque após o intervalo
+                atacando = false;
+                contadorTempoAtaque = 0f;
+            }
+        }
 
-            animator.SetBool("Andando", true); // Define que está andando
+        // Se não está atacando, continua patrulhando
+        if (!atacando)
+        {
+            Patrulhar();
+        }
+
+        DetectarJogador();
+    }
+
+    void Patrulhar()
+    {
+        // Move em direção ao destino atual
+        transform.position = Vector3.MoveTowards(transform.position, destinoAtual, velocidade * Time.deltaTime);
+
+        // Verifica a direção e ajusta apenas o eixo X da escala
+        if (transform.position.x < destinoAtual.x)
+        {
+            // Indo para a direita
+            transform.localScale = new Vector3(Mathf.Abs(escalaInicial.x), escalaInicial.y, escalaInicial.z);
         }
         else
         {
-            animator.SetBool("Andando", false); // Se está atacando, não anda
+            // Indo para a esquerda
+            transform.localScale = new Vector3(-Mathf.Abs(escalaInicial.x), escalaInicial.y, escalaInicial.z);
         }
+        animator.SetBool("Andando", true);
 
-        // Verifica se o jogador está dentro da área de ataque e se passou o intervalo entre os ataques
-        if (areaDeAtaque.IsTouchingLayers(LayerMask.GetMask("player")) && Time.time - tempoUltimoAtaque >= tempoEntreAtaques)
+        // Troca de direção ao alcançar o destino
+        if (Vector3.Distance(transform.position, destinoAtual) < 0.1f)
         {
-            IniciarAtaque();
+            destinoAtual = (destinoAtual == pontoA.position) ? pontoB.position : pontoA.position;
+        }
+    }
+
+    void DetectarJogador()
+    {
+        float distanciaAoJogador = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distanciaAoJogador <= distanciaDeteccao && !atacando)
+        {
+            // Inimigo detecta o jogador e para de patrulhar para atacar
+            atacando = true;
+            animator.SetBool("Andando", false);
+            animator.SetBool("atac", true);
+
+            // Ajusta a direção para o jogador
+            VirarParaJogador();
+
+            Atacar();
+        }
+        else if (distanciaAoJogador > distanciaDeteccao && atacando)
+        {
+            // Se o jogador sair da área de detecção, interrompe o ataque
+            atacando = false;
+            animator.SetBool("atac", false);  // Interrompe animação de ataque
+            animator.SetBool("Andando", true); // Retorna à animação de patrulha
+        }
+    }
+
+    void Atacar()
+    {
+        // Lógica para ataque com machado
+        animator.SetTrigger("atac");  // Chama animação de ataque com machado
+
+        // Aguardando o intervalo entre os ataques
+        atacando = true;
+    }
+
+    public void ReceberDano(int dano)
+    {
+        if (morto) return;
+
+        // Reduz a vida do inimigo
+        vidaAtual -= dano;
+
+        // Se a vida chegar a zero, o inimigo morre
+        if (vidaAtual <= 0)
+        {
+            vidaAtual = 0;
+            Morrer();
+        }
+    }
+
+    void Morrer()
+    {
+        morto = true;
+        animator.SetTrigger("mort");
+
+        // Desativa a colisão e outros componentes
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
+
+        // Destrói o objeto após a animação de morte
+        Destroy(gameObject, 2f);
+    }
+
+    // Método para desenhar a área de detecção de ataque com Gizmos
+    void OnDrawGizmos()
+    {
+        // Define a cor para a área de detecção
+        Gizmos.color = Color.red;
+
+        // Desenha uma esfera que representa a área de detecção
+        Gizmos.DrawWireSphere(transform.position, distanciaDeteccao);
+    }
+
+    void VirarParaJogador()
+    {
+        // Verifica a posição do jogador em relação ao inimigo e ajusta a escala
+        if (player.transform.position.x > transform.position.x)
+        {
+            // Jogador está à direita do inimigo
+            transform.localScale = new Vector3(Mathf.Abs(escalaInicial.x), escalaInicial.y, escalaInicial.z);
         }
         else
         {
-            animator.SetBool("Andando", true); // Se não está atacando, continua andando
+            // Jogador está à esquerda do inimigo
+            transform.localScale = new Vector3(-Mathf.Abs(escalaInicial.x), escalaInicial.y, escalaInicial.z);
         }
     }
-
-    void IniciarAtaque()
-    {
-        estaAtacando = true;
-        animator.SetTrigger("atac"); // Ativa a animação de ataque com machado
-        tempoUltimoAtaque = Time.time; // Registra o tempo do último ataque
-        StartCoroutine(AguardarFimDoAtaque());
-    }
-
-    IEnumerator AguardarFimDoAtaque()
-    {
-        yield return new WaitForSeconds(1f); // Espera o tempo da animação do golpe
-        estaAtacando = false;
-    }
-
-    // Método para tomar dano
-    public void TomarDano(int dano)
-    {
-        // Lógica para reduzir vida e verificar morte
-    }
+    
+    
 }
 
 

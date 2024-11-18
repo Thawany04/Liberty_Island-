@@ -606,7 +606,7 @@ Transform:
   m_GameObject: {fileID: 436843324}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.559, y: -9, z: -0.013739473}
+  m_LocalPosition: {x: -13.559, y: -8.56, z: -0.013739473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -924,7 +924,7 @@ GameObject:
   - component: {fileID: 695423399}
   - component: {fileID: 695423398}
   m_Layer: 0
-  m_Name: Minotaur - Sprite Sheet_0
+  m_Name: orc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -965,10 +965,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pontoA: {fileID: 436843325}
   pontoB: {fileID: 1091618662}
-  velocidade: 3
-  distanciaDeAtaque: 1.5
-  tempoEntreAtaques: 2
-  areaDeAtaque: {fileID: 387868745}
+  velocidade: 1
+  player: {fileID: 2034630035}
+  distanciaDeteccao: 1.44
+  intervaloAtaque: 1.5
+  vida: 100
+  vidaAtual: 0
 --- !u!50 &695423400
 Rigidbody2D:
   serializedVersion: 4
@@ -1630,7 +1632,7 @@ Transform:
   m_GameObject: {fileID: 1091618661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.07, y: -9, z: -0.013739473}
+  m_LocalPosition: {x: -4.7, y: -8.56, z: -0.013739473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15639,6 +15641,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2034630035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8848763358786708957, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
+  m_PrefabInstance: {fileID: 605262146}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2043138693 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7507289094691213795, guid: c62f80a13a71f7f4fb29dedc40537475, type: 3}
