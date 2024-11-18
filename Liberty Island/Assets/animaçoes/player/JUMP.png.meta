@@ -130,8 +130,8 @@ TextureImporter:
         y: 9
         width: 23
         height: 35
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.4860022, y: 0.0045236587}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: JUMP_1
       rect:
         serializedVersion: 2
-        x: 129
+        x: 128
         y: 9
         width: 24
         height: 36
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.62266475, y: 0.006089714}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -172,8 +172,8 @@ TextureImporter:
         y: 10
         width: 22
         height: 34
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.64280146, y: 0.005490864}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
