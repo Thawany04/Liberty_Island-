@@ -178,13 +178,23 @@ public class PlayerController : MonoBehaviour
             }
         }
         // Adicionando lógica para o boss
-        else if (enemy.CompareTag("boss")) // Verifica se o objeto atingido é o boss
+         if (enemy.CompareTag("boss")) // Verifica se o objeto atingido é o boss
         {
             Debug.Log("Chefe atingido pela espada!");
             boss2 bossScript = enemy.GetComponent<boss2>();
             if (bossScript != null)
             {
                 bossScript.TakeDamage(6); // Aplica dano ao chefe
+            }
+        }
+        
+        if (enemy.CompareTag("inimigo"))
+        {
+            Debug.Log("Inimigo atingido pela espada!");
+            sd enemyScript = enemy.GetComponent<sd>(); // Altere aqui para InimigoComMachado
+            if (enemyScript != null)
+            {
+                enemyScript.ReceberDano(6); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
             }
         }
     }

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class general : MonoBehaviour
+public class General : MonoBehaviour
 {
-   
     public float moveSpeed = 3f; // Velocidade de movimento do boss
     public float waitTime = 1.5f; // Tempo de espera ao atingir os extremos
     public float attackInterval = 5f; // Intervalo entre ataques
@@ -20,6 +19,7 @@ public class general : MonoBehaviour
     private bool isAttacking = false; // Indica se o boss está atacando
     private Animator animator; // Referência ao Animator
     private float attackTimer; // Temporizador de ataque
+    private bool originalFacingRight; // Direção original antes de atacar
 
     void Start()
     {
@@ -61,10 +61,14 @@ public class general : MonoBehaviour
     {
         isAttacking = true;
         SetWalking(false); // Para o movimento
-        SetShooting(true); // Ativa a animação de atirar
+
+        // Salva a direção original antes de virar para o jogador
+        originalFacingRight = facingRight;
 
         // Gira o general para o lado do jogador
         FlipTowardsPlayer();
+
+        SetShooting(true); // Ativa a animação de atirar
 
         // Espera a animação de atirar iniciar (ajuste o tempo conforme a duração da animação)
         yield return new WaitForSeconds(0.5f);
@@ -76,6 +80,13 @@ public class general : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         SetShooting(false); // Desativa a animação de atirar
+
+        // Volta para a direção original após o ataque
+        if (originalFacingRight != facingRight)
+        {
+            Flip(); // Volta à direção original
+        }
+
         SetWalking(true); // Volta para a animação de andar
         isAttacking = false;
     }
@@ -94,25 +105,23 @@ public class general : MonoBehaviour
         }
     }
 
-
-
-
     // Método para girar o general para o lado do jogador
     void FlipTowardsPlayer()
     {
         if (player != null)
         {
-            // Verifica a posição do jogador em relação ao general
-            if (player.position.x > transform.position.x && !facingRight)
+            // Verifica se o jogador está à direita do general
+            bool playerToTheRight = player.position.x > transform.position.x;
+
+            // Gira para a direita se o jogador estiver à direita e ele estiver virado para a esquerda
+            // Ou gira para a esquerda se o jogador estiver à esquerda e ele estiver virado para a direita
+            if ((playerToTheRight && !facingRight) || (!playerToTheRight && facingRight))
             {
-                Flip(); // Gira o general para a direita
-            }
-            else if (player.position.x < transform.position.x && facingRight)
-            {
-                Flip(); // Gira o general para a esquerda
+                Flip(); // Gira o general na direção do jogador
             }
         }
     }
+
 
     // Coroutine para esperar antes de inverter a direção
     IEnumerator WaitBeforeTurning()
@@ -122,22 +131,18 @@ public class general : MonoBehaviour
         yield return new WaitForSeconds(waitTime); // Espera pelo tempo definido
 
         // Troca o ponto alvo quando terminar a espera
-        if (targetPosition == pointA.position)
+        targetPosition = (targetPosition == pointA.position) ? pointB.position : pointA.position;
+
+        // Inverte a direção apenas se necessário
+        if ((targetPosition == pointB.position && !facingRight) || (targetPosition == pointA.position && facingRight))
         {
-            targetPosition = pointB.position;
-        }
-        else
-        {
-            targetPosition = pointA.position;
+            Flip();
         }
 
-        // Inverte a direção
-        Flip();
         SetWalking(true); // Volta para a animação de andar
         isWaiting = false;
     }
 
-    
     // Método para inverter a direção
     void Flip()
     {
@@ -148,9 +153,9 @@ public class general : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
 
-        // O firePoint agora já está ajustado corretamente com base na inversão da escala
+        // Inverte também o ponto de disparo (firePoint) para que o projétil saia na direção correta
+        firePoint.localPosition = new Vector3(-firePoint.localPosition.x, firePoint.localPosition.y, firePoint.localPosition.z);
     }
-
 
     // Método para definir o estado de movimento no Animator
     void SetWalking(bool isWalking)
@@ -163,10 +168,4 @@ public class general : MonoBehaviour
     {
         animator.SetBool("isShooting", isShooting);
     }
-
 }
-
-
-
-
-
