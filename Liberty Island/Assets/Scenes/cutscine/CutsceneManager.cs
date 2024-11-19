@@ -15,7 +15,7 @@ public class CutsceneManager : MonoBehaviour
     private void OnCutsceneEnd(PlayableDirector director)
     {
         // Carregar a nova cena
-        SceneManager.LoadScene("Fase 1"); // Substitua pelo nome da sua cena
+        SceneManager.LoadScene("Tutorial"); // Substitua pelo nome da sua cena
     }
 
     void OnDestroy()

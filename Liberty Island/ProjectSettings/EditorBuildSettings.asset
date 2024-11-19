@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/cutscine/cutscine 1.unity
     guid: 2577e8c2403f81d4d94bb87482882769
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: f5bad2146be479649bb940cd6f53e559
   m_configObjects: {}
