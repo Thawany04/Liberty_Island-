@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pontoA: {fileID: 0}
   pontoB: {fileID: 0}
-  velocidade: 2
+  velocidade: 1
   player: {fileID: 0}
   distanciaDeteccao: 2.76
   projetilPrefab: {fileID: 6660316953339344567, guid: 6fa098c01f7ee8947ad452fbb3f97f22, type: 3}

@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 198708545694662268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 104.4, y: 3.29, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 104.44, y: 2.3109, z: 0}
+  m_LocalScale: {x: 12.488067, y: 12.488067, z: 12.488067}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41bb4f8ceb4dd0944889b0c8b90d98f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,8 +122,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -131,11 +131,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.49649048, y: 0.074867964}
-      - {x: 0, y: 0.5773587}
-      - {x: -0.5111389, y: 0.111364365}
-      - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+    - - {x: -0.009567795, y: -0.060000714}
+      - {x: -0.019584509, y: -0.059597723}
+      - {x: -0.019597238, y: -0.03959686}
+      - {x: -0.02962962, y: -0.039652064}
+      - {x: -0.02977357, y: -0.019726874}
+      - {x: -0.039831154, y: -0.019834734}
+      - {x: -0.039798535, y: -0.009779707}
+      - {x: -0.05008706, y: -0.009907203}
+      - {x: -0.05028291, y: -0.019768706}
+      - {x: -0.060215406, y: -0.01973275}
+      - {x: -0.060325082, y: -0.03976327}
+      - {x: -0.070282064, y: -0.039770797}
+      - {x: -0.0703183, y: -0.059870478}
+      - {x: -0.08033507, y: -0.060121138}
+      - {x: -0.08080511, y: -0.08046077}
+      - {x: -0.009520598, y: -0.08039036}
   m_UseDelaunayMesh: 0
 --- !u!114 &4165221611239072587
 MonoBehaviour:
