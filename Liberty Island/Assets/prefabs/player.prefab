@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1542074315289594996}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.113, y: 0.033, z: 0}
+  m_LocalPosition: {x: 0.003, y: 0.006, z: 0}
   m_LocalScale: {x: 0.059009615, y: 0.059009615, z: 0.059009615}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 2451972361864156776}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.368, y: 0.149, z: 0}
+  m_LocalPosition: {x: 0.244, y: 0.149, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -194,7 +194,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_Sprite: {fileID: -1088860270, guid: 50765d1354c69274ebb39618bf048bc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -238,10 +238,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.12738162, y: 0.17213503}
+  m_Offset: {x: 0.014378965, y: 0.17213503}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5791401, y: 0.0049705096}
     oldSize: {x: 0.19, y: 0.35}
     newSize: {x: 0.19, y: 0.34}
     adaptiveTilingThreshold: 0.5
@@ -249,7 +249,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.116258025, y: 0.32845825}
+  m_Size: {x: 0.12632287, y: 0.32845825}
   m_EdgeRadius: 0
 --- !u!50 &9004420911531973053
 Rigidbody2D:
@@ -293,7 +293,7 @@ MonoBehaviour:
   speed: 5
   forcejump: 8
   isJump: 0
-  vida: 300
+  vida: 3
   groundCheck: {fileID: 4745937395758865930}
   groundCheckRadius: 0.17
   whatIsGround:
@@ -309,9 +309,9 @@ MonoBehaviour:
   attackDelay: 0.5
   audioSource: {fileID: 0}
   jumpSound: {fileID: 8300000, guid: b40860bcaa6fbc147be0bfa4b7988186, type: 3}
-  faca: {fileID: 8300000, guid: 3a7eac2dd428beb4696dab2dc453e280, type: 3}
-  corre: {fileID: 8300000, guid: bbe10c8736df7ac4880289a1f5e557b6, type: 3}
-  spada: {fileID: 8300000, guid: 3a7eac2dd428beb4696dab2dc453e280, type: 3}
+  faca: {fileID: 8300000, guid: e22a8ade45aa05941b7b0a04f6518396, type: 3}
+  corre: {fileID: 8300000, guid: 04c18e8b7e12e82498489df9400766f5, type: 3}
+  spada: {fileID: 8300000, guid: cba8371262854564089034c2ab1895d4, type: 3}
 --- !u!95 &8557192253266770120
 Animator:
   serializedVersion: 5

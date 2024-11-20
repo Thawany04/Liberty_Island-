@@ -599,7 +599,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f01212c84def4c04dac2c948b41f22e8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7e2729866f5cd4340bfd71d24314dbf5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
@@ -2413,9 +2413,9 @@ MonoBehaviour:
   currentHealth: 0
   attackInterval: 2.5
   barradevida: {fileID: 1146644785}
-  enrageSound: {fileID: 8300000, guid: a260e53e1222dc047998ac170bf50c11, type: 3}
-  attackSound: {fileID: 8300000, guid: c60dcb108f77e014898a7db3d4ceef1e, type: 3}
-  walkSound: {fileID: 0}
+  enrageSound: {fileID: 8300000, guid: add79c31b3b59644f9efe86e859776fd, type: 3}
+  attackSound: {fileID: 8300000, guid: b02e8769b50c33b428ff8920a9cd872f, type: 3}
+  walkSound: {fileID: 8300000, guid: abe8784f7760ece439e112611f46241a, type: 3}
 --- !u!212 &1220391400
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3208,6 +3208,10 @@ PrefabInstance:
     - target: {fileID: 631883677713243492, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4426084415699120854, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
+      propertyPath: vida
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4426084415699120854, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: bulletLifeTime
