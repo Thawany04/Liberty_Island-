@@ -145,7 +145,7 @@ public class sd : MonoBehaviour
         this.enabled = false;
 
         // Destrói o objeto após a animação de morte
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 0.8f);
     }
 
     // Método para desenhar a área de detecção de ataque com Gizmos

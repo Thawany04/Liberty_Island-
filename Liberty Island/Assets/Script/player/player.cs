@@ -64,13 +64,13 @@ public class PlayerController : MonoBehaviour
         }
 
         // Atirar com a tecla F
-        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.L) && !isAttacking)
         {
             StartCoroutine(ShootCoroutine());
         }
 
         // Atacar com a espada ao pressionar "C"
-        if (Input.GetKeyDown(KeyCode.C) && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.K) && !isAttacking)
         {
             StartCoroutine(SwordAttack());
         }

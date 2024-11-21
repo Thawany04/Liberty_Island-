@@ -203,7 +203,7 @@ MonoBehaviour:
   pontoDeTiro: {fileID: 5905618876942571474}
   velocidadeTiro: 10
   intervaloAtaque: 1.5
-  vida: 100
+  vida: 1
   vidaAtual: 0
 --- !u!1 &3078915133072494737
 GameObject:

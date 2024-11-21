@@ -12990,7 +12990,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 631883677713243492, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.49
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 631883677713243492, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: m_LocalPosition.y
@@ -19791,7 +19791,7 @@ Transform:
   m_GameObject: {fileID: 890774438}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.931948, y: -6.00972, z: -10}
+  m_LocalPosition: {x: 1.9000559, y: -6.01113, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -70842,7 +70842,7 @@ Transform:
   m_GameObject: {fileID: 2124897583}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.49, y: -6.4100003, z: -10}
+  m_LocalPosition: {x: 1.9000002, y: -6.4100003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -71449,6 +71449,14 @@ PrefabInstance:
     - target: {fileID: 2971113538196071841, guid: f2f0d896b88563b409df47a21a2409a6, type: 3}
       propertyPath: m_Name
       value: orc
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580009395534970218, guid: f2f0d896b88563b409df47a21a2409a6, type: 3}
+      propertyPath: dano
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580009395534970218, guid: f2f0d896b88563b409df47a21a2409a6, type: 3}
+      propertyPath: vida
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580009395534970218, guid: f2f0d896b88563b409df47a21a2409a6, type: 3}
       propertyPath: player
