@@ -123,7 +123,7 @@ BoxCollider2D:
   m_Offset: {x: 0.13566364, y: 0.19878358}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.09811838, y: 0.004973984}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.52, y: 0.4}
     newSize: {x: 0.52, y: 0.4}
     adaptiveTilingThreshold: 0.5
@@ -178,7 +178,7 @@ MonoBehaviour:
   player: {fileID: 0}
   distanciaDeteccao: 1.44
   intervaloAtaque: 1.5
-  vida: 6
+  vida: 1
   vidaAtual: 0
   dano: 2
 --- !u!95 &5119374309747856724

@@ -3709,6 +3709,10 @@ PrefabInstance:
       value: orc
       objectReference: {fileID: 0}
     - target: {fileID: 4580009395534970218, guid: f2f0d896b88563b409df47a21a2409a6, type: 3}
+      propertyPath: vida
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580009395534970218, guid: f2f0d896b88563b409df47a21a2409a6, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1381778948}
