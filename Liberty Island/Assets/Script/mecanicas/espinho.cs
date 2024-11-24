@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class espinho : MonoBehaviour
 {
-    public int dano = 10; // Define o valor do dano que o espinho causa
+    public int dano = 1; // Define o valor do dano que o espinho causa
     public float intervaloDano = 1.0f; // Intervalo entre os danos causados pelo espinho
 
     private bool jogadorEmCima = false; // Verifica se o jogador está em cima do espinho
     private float tempoUltimoDano = 0.0f; // Tempo desde o último dano
-
     void Update()
     {
         // Verifica se o jogador está em cima do espinho e o intervalo de dano

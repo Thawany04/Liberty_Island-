@@ -32,7 +32,7 @@ public class Gamer_Controler : MonoBehaviour
     public void Updatescore(int value)
     {
         score += value;
-        scoreText.text = $"{score} / {quantidade}";
+        scoreText.text = $"{score}";
     }
 
     void Start()
