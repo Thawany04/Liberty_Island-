@@ -12,7 +12,9 @@ public class Gamer_Controler : MonoBehaviour
 
     public int score, quantidade;
     public Text scoreText;
-    
+
+    public AudioSource audioSource;
+    public GameObject PainelGameOver;
     void Awake()
     {
         // Verifica se já existe uma instância do Gamer_Controler
@@ -44,5 +46,30 @@ public class Gamer_Controler : MonoBehaviour
     public void UpdateLives(int value)
     {
         vidatext.text = "x " + value.ToString();
+    }
+
+    public void voltamenu()
+    {
+        SceneManager.LoadScene("Menu");
+        PainelGameOver. SetActive(false);
+    }
+    
+    public void reiniciafase()
+    {
+        // Obtém o índice da cena atual
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Recarrega a cena atual
+        SceneManager.LoadScene(currentSceneIndex);
+        PainelGameOver. SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        PainelGameOver.SetActive(true);  // Ativa o painel de Game Over
+        if (audioSource != null)
+        {
+            audioSource.Pause();  // Para o som
+        }
     }
 }

@@ -16,6 +16,7 @@ public class agualava : MonoBehaviour
     // Método que carrega a cena após o atraso
     private void LoadScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("ExplosionScene");
+        Gamer_Controler.Instance.GameOver();
+        
     }
 }

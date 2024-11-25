@@ -10,10 +10,19 @@ public class TimerManager : MonoBehaviour
     private float currentTime;
     public Text timerText; // Referência ao componente de texto na UI
 
+    private PlayerController playerController; // Referência ao script do PlayerController
+
     void Start()
     {
         currentTime = startTime;
         UpdateTimerUI();
+
+        // Encontrar o jogador na cena e obter o PlayerController
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerController = player.GetComponent<PlayerController>();
+        }
     }
 
     void Update()
@@ -25,6 +34,12 @@ public class TimerManager : MonoBehaviour
         {
             currentTime = 0;
             Explode();
+        }
+
+        // Verifica a vida do jogador e desativa o timer
+        if (playerController != null && playerController.vida <= 0)
+        {
+            timerText.gameObject.SetActive(false);
         }
     }
 
@@ -38,8 +53,7 @@ public class TimerManager : MonoBehaviour
 
     void Explode()
     {
-        // Carrega a cena de explosão
-        SceneManager.LoadScene("ExplosionScene");
+        Gamer_Controler.Instance.GameOver();
     }
 
     public void AddTime(float extraTime)

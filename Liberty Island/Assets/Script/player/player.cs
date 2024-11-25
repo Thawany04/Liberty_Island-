@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float forcejump;
     public bool isJump;
-    public int vida;
+    public  int vida;
 
     private Rigidbody2D rig;
     private Animator anim;
@@ -84,13 +84,13 @@ public class PlayerController : MonoBehaviour
 
     void Mover()
     {
+        // Permitir movimento apenas se a vida for maior que zero
+        if (vida <= 0) return;
+
         float movement = Input.GetAxis("Horizontal");
 
         // Evitar movimento se estiver atacando
-        if (isAttacking)
-        {
-            return; // Não permitir movimento durante o ataque
-        }
+        if (isAttacking) return;
 
         // Atualiza a velocidade do jogador
         rig.velocity = new Vector2(movement * speed, rig.velocity.y);
@@ -121,10 +121,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     void Jump()
     {
-        // Só permite o pulo se o jogador estiver no chão (isGrounded) e não estiver atacando
-        if (Input.GetButtonDown("Jump") && isGrounded && !isAttacking)
+        // Só permite o pulo se o jogador estiver no chão (isGrounded), não estiver atacando e tiver vida maior que zero
+        if (vida > 0 && Input.GetButtonDown("Jump") && isGrounded && !isAttacking)
         {
             rig.AddForce(new Vector2(0, forcejump), ForceMode2D.Impulse);
             anim.SetInteger("Transition", 4); // Ativar animação de pulo
@@ -206,10 +207,6 @@ public class PlayerController : MonoBehaviour
 }
 
 
-
-
-
-
     IEnumerator ShootCoroutine()
     {
         isAttacking = true; // Marca que o jogador está atacando
@@ -254,7 +251,7 @@ public class PlayerController : MonoBehaviour
 
         if (vida <= 0)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("ExplosionScene");
+            Gamer_Controler.Instance.GameOver();
         }
     }
 
