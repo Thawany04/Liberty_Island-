@@ -198,12 +198,12 @@ MonoBehaviour:
   pontoB: {fileID: 0}
   velocidade: 1
   player: {fileID: 0}
-  distanciaDeteccao: 2.76
+  distanciaDeteccao: 3.78
   projetilPrefab: {fileID: 6660316953339344567, guid: 6fa098c01f7ee8947ad452fbb3f97f22, type: 3}
   pontoDeTiro: {fileID: 5905618876942571474}
-  velocidadeTiro: 10
-  intervaloAtaque: 1.5
-  vida: 1
+  velocidadeTiro: 7
+  intervaloAtaque: 2.5
+  vida: 2
   vidaAtual: 0
 --- !u!1 &3078915133072494737
 GameObject:
