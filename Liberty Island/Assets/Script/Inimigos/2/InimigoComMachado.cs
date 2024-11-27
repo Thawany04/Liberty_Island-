@@ -112,6 +112,7 @@ public class InimigoComMachado : MonoBehaviour
 
     void Atacar()
     {
+        
         // Lógica para ataque com machado
         animator.SetTrigger("atac");  // Chama animação de ataque com machado
 
@@ -121,6 +122,7 @@ public class InimigoComMachado : MonoBehaviour
         {
             if (col.CompareTag("Player"))
             {
+                
                 Debug.Log("Jogador atingido pelo inimigo!");
                 PlayerController playerScript = col.GetComponent<PlayerController>();
                 if (playerScript != null)
@@ -161,7 +163,7 @@ public class InimigoComMachado : MonoBehaviour
         this.enabled = false;
 
         // Destrói o objeto após a animação de morte
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 0.8f);
     }
 
     // Método para desenhar a área de detecção de ataque com Gizmos

@@ -29,6 +29,19 @@ public class Bullet : MonoBehaviour
                 boss.TakeDamage(dano);
             }
         }
+        
+        // Verifica se a bala colidiu com um inimigo
+        if (collision.gameObject.CompareTag("inimigo"))
+        {
+            // Pega o script do inimigo e aplica dano
+            InimigoComMachado inimigo = collision.gameObject.GetComponent<InimigoComMachado>();
+            if (inimigo != null)
+            {
+                inimigo.ReceberDano(dano);
+            }
+        }
+        
+        
 
         // Destruir a bala ao colidir com qualquer objeto
         Destroy(gameObject);
