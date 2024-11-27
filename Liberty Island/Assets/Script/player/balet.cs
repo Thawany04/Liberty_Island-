@@ -41,6 +41,17 @@ public class Bullet : MonoBehaviour
             }
         }
         
+        // Verifica se a bala colidiu com um boss
+        if (collision.gameObject.CompareTag("boss"))
+        {
+            // Pega o script do boss e aplica dano
+            General boss = collision.gameObject.GetComponent<General>();
+            if (boss != null)
+            {
+                boss.ReceberDano(dano);
+            }
+        }
+        
         
 
         // Destruir a bala ao colidir com qualquer objeto

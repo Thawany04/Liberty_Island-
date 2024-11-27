@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class General : MonoBehaviour
 {
@@ -20,6 +22,14 @@ public class General : MonoBehaviour
     private Animator animator; // Referência ao Animator
     private float attackTimer; // Temporizador de ataque
     private bool originalFacingRight; // Direção original antes de atacar
+    
+    
+    public Slider healthBar; // Referência à barra de vida
+    public int maxHealth = 100; // Vida máxima do General
+    private int currentHealth; // Vida atual do General
+
+    
+    
 
     void Start()
     {
@@ -27,6 +37,10 @@ public class General : MonoBehaviour
         animator = GetComponent<Animator>(); // Pega a referência do Animator
         SetWalking(true); // Começa andando
         attackTimer = attackInterval; // Inicializa o temporizador de ataque
+        
+        currentHealth = maxHealth;
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currentHealth;
     }
 
     void Update()
@@ -168,4 +182,36 @@ public class General : MonoBehaviour
     {
         animator.SetBool("isShooting", isShooting);
     }
+    
+    public void ReceberDano(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.value = currentHealth;
+
+        if (currentHealth <= 0)
+        {
+            Die(); // Método para ações ao morrer
+        }
+    }
+    
+    void Die()
+    {
+        // Implementar o que acontece quando o General morre
+        Debug.Log("General derrotado!");
+        Destroy(gameObject);
+    }
+    
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.Damager(10); // Exemplo: O jogador perde 10 de vida
+            }
+        }
+    }
+
+    
 }

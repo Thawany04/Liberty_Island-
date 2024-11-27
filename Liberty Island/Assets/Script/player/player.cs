@@ -198,6 +198,17 @@ public class PlayerController : MonoBehaviour
                 enemyScript.ReceberDano(6); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
             }
         }
+        
+        if (enemy.CompareTag("boss"))
+        {
+            Debug.Log("Inimigo atingido pela espada!");
+            General enemyScript = enemy.GetComponent<General>(); // Altere aqui para InimigoComMachado
+            if (enemyScript != null)
+            {
+                enemyScript.ReceberDano(6); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
+            }
+        }
+        
     }
 
     // Aguarda o tempo de delay antes de permitir outro ataque
