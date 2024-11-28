@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,7 +95,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Tirano Faca_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 29
+        height: 31
+      alignment: 9
+      pivot: {x: 0.108500905, y: 0.005792395}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d60e9635e8adde42b82d7244a802b64
+      internalID: -2047392966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tirano Faca_1
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 0
+        width: 23
+        height: 31
+      alignment: 9
+      pivot: {x: 0.22432527, y: 0.0045453203}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74766a38b9d48d943bd545a8a973c39d
+      internalID: 1839635853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tirano Faca_2
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 0
+        width: 32
+        height: 31
+      alignment: 9
+      pivot: {x: 0.005380869, y: 0.00303017}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 178cc36e31523804e942f208d3c1cc27
+      internalID: 658832149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tirano Faca_3
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 0
+        width: 29
+        height: 31
+      alignment: 9
+      pivot: {x: 0.0728673, y: 0.008324444}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6675f599c94e22f418db88a3f20f0af5
+      internalID: -2019948640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tirano Faca_4
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 0
+        width: 22
+        height: 31
+      alignment: 9
+      pivot: {x: 0.09648895, y: 0.004994646}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e37ef694ed3402c479a576f7928f116f
+      internalID: -882955926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tirano Faca_5
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 21
+        height: 31
+      alignment: 9
+      pivot: {x: 0.10185169, y: 0.004994646}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52933ae66c5d0d14c9a0464bfc933147
+      internalID: 183142260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tirano Faca_6
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 0
+        width: 24
+        height: 31
+      alignment: 9
+      pivot: {x: 0.13226509, y: 0.004994646}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f7cf0743a5b34f429e89dd3e77143e4
+      internalID: -331138182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tirano Faca_7
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 0
+        width: 29
+        height: 31
+      alignment: 9
+      pivot: {x: 0.106682085, y: 0.0066595455}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e1c201ce67a7740bfe0fe0c9f58126
+      internalID: 1446385481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +274,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Tirano Faca_0: -2047392966
+      Tirano Faca_1: 1839635853
+      Tirano Faca_2: 658832149
+      Tirano Faca_3: -2019948640
+      Tirano Faca_4: -882955926
+      Tirano Faca_5: 183142260
+      Tirano Faca_6: -331138182
+      Tirano Faca_7: 1446385481
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
