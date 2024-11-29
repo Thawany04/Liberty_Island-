@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InimigoComMachado : MonoBehaviour
 {
+    public AudioSource Atack;
     public Transform pontoA;  // Primeiro ponto de patrulha
     public Transform pontoB;  // Segundo ponto de patrulha
     public float velocidade = 2f;  // Velocidade do movimento
@@ -27,6 +28,7 @@ public class InimigoComMachado : MonoBehaviour
 
     void Start()
     {
+        Atack = GetComponent<AudioSource>();
         destinoAtual = pontoB.position;  // Inicia patrulhando para o ponto B
         escalaInicial = transform.localScale;
         animator = GetComponent<Animator>();
@@ -100,6 +102,7 @@ public class InimigoComMachado : MonoBehaviour
             VirarParaJogador();
 
             Atacar();
+            Atack.Play();
         }
         else if (distanciaAoJogador > distanciaDeteccao && atacando)
         {
@@ -115,7 +118,6 @@ public class InimigoComMachado : MonoBehaviour
         
         // Lógica para ataque com machado
         animator.SetTrigger("atac");  // Chama animação de ataque com machado
-
         // Verificar se o jogador está na área de ataque do inimigo
         Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, distanciaDeteccao);
         foreach (Collider2D col in hitPlayers)

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class sd : MonoBehaviour
-
+{
+    public AudioSource Tiro;
     
     public Transform pontoA;  // Primeiro ponto de patrulha
     public Transform pontoB;  // Segundo ponto de patrulha
@@ -28,6 +29,7 @@ public class sd : MonoBehaviour
 
     void Start()
     {
+        Tiro = GetComponent<AudioSource>();
         destinoAtual = pontoB.position;  // Inicia patrulhando para o ponto B
         // Armazena a escala inicial do inimigo
         escalaInicial = transform.localScale;
@@ -112,10 +114,11 @@ public class sd : MonoBehaviour
     
     void Atirar()
     {
+        Tiro.Play();
         // Cria um projétil na posição do pontoDeTiro
         GameObject projetil = Instantiate(projetilPrefab, pontoDeTiro.position, Quaternion.identity);
         Rigidbody2D rb = projetil.GetComponent<Rigidbody2D>();
-
+    
         // Calcula a direção do tiro em direção ao jogador
         Vector3 direcao = (player.transform.position - pontoDeTiro.position).normalized;
         rb.velocity = direcao * velocidadeTiro;
