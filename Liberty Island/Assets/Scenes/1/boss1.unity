@@ -170,7 +170,7 @@ MonoBehaviour:
   firePoint: {fileID: 1281121279}
   player: {fileID: 34882056}
   healthBar: {fileID: 372179007}
-  maxHealth: 30
+  maxHealth: 39
   phase2SpeedMultiplier: 1.5
   phase2AttackSpeedMultiplier: 0.5
 --- !u!95 &43889369
@@ -2577,7 +2577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4426084415699120854, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: vida
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4426084415699120854, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: general

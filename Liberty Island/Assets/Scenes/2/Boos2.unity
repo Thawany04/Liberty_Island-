@@ -3557,7 +3557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4426084415699120854, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: vida
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4426084415699120854, guid: efd443eef2f58f24c954e6afb6b70460, type: 3}
       propertyPath: bulletLifeTime
