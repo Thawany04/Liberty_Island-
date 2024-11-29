@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class sd : MonoBehaviour
-{
+
+    
     public Transform pontoA;  // Primeiro ponto de patrulha
     public Transform pontoB;  // Segundo ponto de patrulha
     public float velocidade = 2f;  // Velocidade do movimento

@@ -4,6 +4,15 @@ using UnityEngine.UI;
 
 public class Tirano : MonoBehaviour
 {
+    [Header("Sons")]
+public AudioClip meleeAttackSound;  // Som de ataque corpo a corpo
+public AudioClip rangedAttackSound; // Som de ataque à distância
+public AudioClip deathSound;        // Som de morte
+public AudioClip idleSound;         // Som de idle (ou de ambiente)
+
+private AudioSource audioSource;     // Componente AudioSource para reproduzir os sons
+
+    
     private Animator animator;
     private bool isDead = false;
     private bool facingRight = true;

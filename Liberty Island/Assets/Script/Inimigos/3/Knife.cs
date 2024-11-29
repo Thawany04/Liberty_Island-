@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Knife : MonoBehaviour
 {
-    public int damage = 10; // Dano causado pela faca
+    public int damage = 1; // Dano causado pela faca
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             // Aplicar dano ao jogador
-            collision.GetComponent<PlayerController>().Damager(damage);
+            collision.GetComponent<PlayerController>().Damager(1);
             Destroy(gameObject);
         }
 

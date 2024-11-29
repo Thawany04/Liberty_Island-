@@ -29,6 +29,15 @@ public class Bullet : MonoBehaviour
                 boss.TakeDamage(dano);
             }
         }
+        if (collision.gameObject.CompareTag("boss"))
+        {
+            // Pega o script do boss e aplica dano
+            Tirano bossTirano = collision.gameObject.GetComponent<Tirano>();
+            if (bossTirano != null)
+            {
+                bossTirano.TakeDamage(dano);
+            }
+        }
         
         // Verifica se a bala colidiu com um inimigo
         if (collision.gameObject.CompareTag("inimigo"))

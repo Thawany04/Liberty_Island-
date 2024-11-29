@@ -181,6 +181,8 @@ public class PlayerController : MonoBehaviour
                 enemyScript.ReceberDano(3); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
             }
         }
+        
+        
         // Adicionando lógica para o boss
          if (enemy.CompareTag("boss")) // Verifica se o objeto atingido é o boss
         {
@@ -191,6 +193,17 @@ public class PlayerController : MonoBehaviour
                 bossScript.TakeDamage(3); // Aplica dano ao chefe
             }
         }
+         
+         // Adicionando lógica para o boss
+         if (enemy.CompareTag("boss")) // Verifica se o objeto atingido é o boss
+         {
+             Debug.Log("Chefe atingido pela espada!");
+             Tirano bossScript = enemy.GetComponent<Tirano>();
+             if (bossScript != null)
+             {
+                 bossScript.TakeDamage(3); // Aplica dano ao chefe
+             }
+         }
         
         if (enemy.CompareTag("inimigo"))
         {
