@@ -266,6 +266,7 @@ public class PlayerController : MonoBehaviour
         if (vida <= 0)
         {
             Gamer_Controler.Instance.GameOver();
+           
             
         }
     }
@@ -277,13 +278,4 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireCube(attackPosition, attackRange);
     }
     
-    public void Morreu()
-    {
-        Debug.Log("Jogador morreu!");
-        if (general != null)
-        {
-            general.DesativarBarraDeVida();
-        }
-        // Aqui você também pode incluir o código para trocar de cena ou outras ações relacionadas à morte do jogador.
-    }
 }

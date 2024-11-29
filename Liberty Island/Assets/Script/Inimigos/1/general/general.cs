@@ -270,12 +270,4 @@ public class General : MonoBehaviour
         }
     }*/
     
-    public void DesativarBarraDeVida()
-    {
-        if (healthBar != null)
-        {
-            healthBar.gameObject.SetActive(false);
-        }
-    }
-    
 }
