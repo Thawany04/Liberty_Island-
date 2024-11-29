@@ -1,16 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tirano : MonoBehaviour
 {
     private Animator animator;
     private bool isDead = false;
     private bool facingRight = true;
+    private bool isPhaseTwo = false; // Controle da fase dois
 
     [Header("Configurações do Chefe")]
     public int maxHealth = 100;
     private int currentHealth;
+
+    [Header("UI")]
+    public Slider healthBar; // Referência ao Slider de vida
 
     [Header("Referências")]
     public Transform player;
@@ -20,63 +24,132 @@ public class Tirano : MonoBehaviour
     public Collider2D meleeCollider;
     public int meleeDamage = 10;
 
-    [Header("Alcances de Ataque")]
+    [Header("Configurações de Ataque")]
     public float meleeAttackRange = 3f;
     public float rangedAttackRange = 10f;
-
-    [Header("Cooldowns")]
-    public float rangedAttackCooldown = 3f; // Tempo de cooldown do ataque à distância
-    private float rangedAttackCooldownTimer = 0f; // Temporizador do cooldown
+    public float rangedAttackCooldown = 3f;
+    private float rangedAttackCooldownTimer = 0f;
 
     private bool isAttacking = false;
     private bool alternateAttack = true;
+
+    [Header("Movimento")]
+    public float moveSpeed = 2f; // Velocidade normal
+    public float phaseTwoMoveSpeed = 3.5f; // Velocidade na fase dois
+
+    [Header("Ataques")]
+    public float normalAttackCooldown = 3f;
+    public float phaseTwoAttackCooldown = 2f;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+
+        // Configura o slider de vida
+        if (healthBar != null)
+        {
+            healthBar.maxValue = maxHealth;
+            healthBar.value = currentHealth;
+        }
     }
 
-    void Update()
+   void Update()
+{
+    if (isDead) return;
+
+    float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+    // Atualiza o temporizador do cooldown
+    if (rangedAttackCooldownTimer > 0)
     {
-        if (isDead) return;
+        rangedAttackCooldownTimer -= Time.deltaTime;
+    }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+    // Verifica se deve mudar para a fase dois
+    if (!isPhaseTwo && currentHealth <= maxHealth / 2)
+    {
+        EnterPhaseTwo();
+    }
 
-        // Atualiza o temporizador do cooldown
-        if (rangedAttackCooldownTimer > 0)
+    // Verifica a direção do jogador antes de agir
+    CheckDirection();
+
+    // Se não está atacando, controlar o movimento e decidir atacar
+    if (!isAttacking)
+    {
+        if (distanceToPlayer <= meleeAttackRange)
         {
-            rangedAttackCooldownTimer -= Time.deltaTime;
+            // Ataque corpo a corpo
+            animator.SetBool("IsRunning", false);
+            StartCoroutine(MeleeAttack());
         }
-
-        // Se não está atacando, controlar o movimento e decidir atacar
-        if (!isAttacking)
+        else if (distanceToPlayer <= rangedAttackRange && rangedAttackCooldownTimer <= 0f)
         {
-            if (distanceToPlayer <= meleeAttackRange)
-            {
-                // Ataque corpo a corpo
-                animator.SetBool("IsRunning", false);
-                StartCoroutine(MeleeAttack());
-            }
-            else if (distanceToPlayer <= rangedAttackRange && rangedAttackCooldownTimer <= 0f)
-            {
-                // Ataque à distância
-                animator.SetBool("IsRunning", false);
-                StartCoroutine(ThrowKnife());
-                rangedAttackCooldownTimer = rangedAttackCooldown; // Ativa o cooldown
-            }
-            else
-            {
-                // Move em direção ao jogador
-                animator.SetBool("IsRunning", true);
-                MoveTowardsPlayer();
-            }
+            // Ataque à distância
+            animator.SetBool("IsRunning", false);
+            StartCoroutine(ThrowKnife());
+            rangedAttackCooldownTimer = isPhaseTwo ? phaseTwoAttackCooldown : normalAttackCooldown;
+        }
+        else
+        {
+            // Move em direção ao jogador
+            animator.SetBool("IsRunning", true);
+            MoveTowardsPlayer();
         }
     }
+}
+
+void CheckDirection()
+{
+    // Gira para o jogador se necessário
+    if ((player.position.x < transform.position.x && facingRight) ||
+        (player.position.x > transform.position.x && !facingRight))
+    {
+        Flip();
+    }
+}
+
+IEnumerator MeleeAttack()
+{
+    isAttacking = true;
+    CheckDirection(); // Garante que o chefe esteja virado para o jogador
+    animator.SetTrigger("MeleeAttackTrigger");
+
+    yield return new WaitForSeconds(0.5f);
+    ApplyMeleeDamage();
+
+    yield return new WaitForSeconds(0.5f);
+    ApplyMeleeDamage();
+
+    yield return new WaitForSeconds(1f);
+    isAttacking = false;
+}
+
+IEnumerator ThrowKnife()
+{
+    isAttacking = true;
+    CheckDirection(); // Garante que o chefe esteja virado para o jogador
+    animator.SetTrigger("ThrowKnifeTrigger");
+
+    GameObject knife = Instantiate(knifePrefab, knifeSpawnPoint.position, Quaternion.identity);
+
+    float direction = Mathf.Sign(transform.localScale.x);
+    Vector3 knifeScale = knife.transform.localScale;
+    knifeScale.x = Mathf.Abs(knifeScale.x) * direction;
+    knife.transform.localScale = knifeScale;
+
+    knife.GetComponent<Rigidbody2D>().velocity = new Vector2(direction * knifeSpeed, 0);
+
+    yield return new WaitForSeconds(1f);
+    isAttacking = false;
+}
 
     void MoveTowardsPlayer()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.position, 2f * Time.deltaTime);
+        float speed = isPhaseTwo ? phaseTwoMoveSpeed : moveSpeed;
+
+        transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 
         // Verifica a direção do jogador
         if (player.position.x < transform.position.x && facingRight)
@@ -96,21 +169,7 @@ public class Tirano : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
-
-    IEnumerator MeleeAttack()
-    {
-        isAttacking = true;
-        animator.SetTrigger("MeleeAttackTrigger");
-
-        yield return new WaitForSeconds(0.5f);
-        ApplyMeleeDamage();
-
-        yield return new WaitForSeconds(0.5f);
-        ApplyMeleeDamage();
-
-        yield return new WaitForSeconds(1f); // Pausa após o ataque
-        isAttacking = false;
-    }
+    
 
     void ApplyMeleeDamage()
     {
@@ -123,36 +182,18 @@ public class Tirano : MonoBehaviour
             }
         }
     }
-
-    IEnumerator ThrowKnife()
-    {
-        isAttacking = true;
-        animator.SetTrigger("ThrowKnifeTrigger");
-
-        // Criação da faca
-        GameObject knife = Instantiate(knifePrefab, knifeSpawnPoint.position, Quaternion.identity);
-
-        // Determina a direção baseada no lado que o chefe está olhando
-        float direction = Mathf.Sign(transform.localScale.x); // Direção: -1 para esquerda, 1 para direita
-
-        // Ajusta a escala da faca para que ela "vire" para o lado correto
-        Vector3 knifeScale = knife.transform.localScale;
-        knifeScale.x = Mathf.Abs(knifeScale.x) * direction; // Inverte a escala X se necessário
-        knife.transform.localScale = knifeScale;
-
-        // Define a velocidade da faca
-        knife.GetComponent<Rigidbody2D>().velocity = new Vector2(direction * knifeSpeed, 0);
-
-        yield return new WaitForSeconds(1f); // Pausa após o ataque
-        isAttacking = false;
-    }
-
-
+    
     public void TakeDamage(int damage)
     {
         if (isDead) return;
 
         currentHealth -= damage;
+
+        if (healthBar != null)
+        {
+            healthBar.value = currentHealth; // Atualiza o slider de vida
+        }
+
         animator.SetTrigger("HitTrigger");
 
         if (currentHealth <= 0)
@@ -161,13 +202,19 @@ public class Tirano : MonoBehaviour
         }
     }
 
+    void EnterPhaseTwo()
+    {
+        isPhaseTwo = true;
+        animator.SetTrigger("PhaseTwoTrigger");
+        // Outras mudanças visuais ou de comportamento podem ser adicionadas aqui
+    }
+
     void Die()
     {
         isDead = true;
         animator.SetBool("IsDead", true);
     }
 
-    // Gizmos para visualizar os alcances de ataque
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
