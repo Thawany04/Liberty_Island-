@@ -66,10 +66,19 @@ public class Gamer_Controler : MonoBehaviour
 
     public void GameOver()
     {
+        ResetGameStats();
         PainelGameOver.SetActive(true);  // Ativa o painel de Game Over
         if (audioSource != null)
         {
             audioSource.Pause();  // Para o som
         }
     }
+    
+    public void ResetGameStats()
+    {
+        score = 0;
+        Updatescore(0); // Atualiza o texto do score
+        UpdateLives(0); // Reseta o texto da vida
+    }
+
 }

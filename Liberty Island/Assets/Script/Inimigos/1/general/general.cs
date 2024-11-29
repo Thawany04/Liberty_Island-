@@ -40,7 +40,9 @@ public class General : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
+        
     }
+    
 
     void Update()
     {
@@ -256,14 +258,14 @@ public class General : MonoBehaviour
         attackInterval /= phase2AttackSpeedMultiplier; // Restaura o intervalo de ataque
     }
 
-    private void OnCollisionEnter2D(Collision2D coll)
+   /* private void OnCollisionEnter2D(Collision2D coll)
     {
         PlayerController player = coll.gameObject.GetComponent<PlayerController>();
         if (coll.gameObject.CompareTag("Player"))
         {
             player.Damager(1);
         }
-    }
+    }*/
     
     public void DesativarBarraDeVida()
     {

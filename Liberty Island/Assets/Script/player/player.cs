@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
             InimigoComMachado enemyScript = enemy.GetComponent<InimigoComMachado>(); // Altere aqui para InimigoComMachado
             if (enemyScript != null)
             {
-                enemyScript.ReceberDano(6); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
+                enemyScript.ReceberDano(3); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
             }
         }
         // Adicionando lógica para o boss
@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
             boss2 bossScript = enemy.GetComponent<boss2>();
             if (bossScript != null)
             {
-                bossScript.TakeDamage(6); // Aplica dano ao chefe
+                bossScript.TakeDamage(3); // Aplica dano ao chefe
             }
         }
         
@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
             sd enemyScript = enemy.GetComponent<sd>(); // Altere aqui para InimigoComMachado
             if (enemyScript != null)
             {
-                enemyScript.ReceberDano(6); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
+                enemyScript.ReceberDano(3); // Aplica dano ao inimigo (mudei de TakeDamage para ReceberDano)
             }
         }
         
@@ -266,6 +266,7 @@ public class PlayerController : MonoBehaviour
         if (vida <= 0)
         {
             Gamer_Controler.Instance.GameOver();
+            
         }
     }
 
