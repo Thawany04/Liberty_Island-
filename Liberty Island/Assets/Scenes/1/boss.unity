@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646b76fd6c328cd40bfa8999ec12dc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 1.5
   waitTime: 1.5
   attackInterval: 5
   pointA: {fileID: 1529986300}

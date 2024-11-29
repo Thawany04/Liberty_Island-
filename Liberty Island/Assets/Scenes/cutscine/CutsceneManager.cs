@@ -1,25 +1,61 @@
-
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.SceneManagement;
+using TMPro;
 
+[RequireComponent(typeof(AudioSource))]
 public class CutsceneManager : MonoBehaviour
 {
-    public PlayableDirector playableDirector;
 
-    void Start()
+    private TextMeshProUGUI componenteTexTo;
+    private AudioSource _audioSource;
+    private string mensagemOriginal;
+    public bool imprimindo;
+    public float tempoentreletras = 0.08f;
+
+    private void Awake()
     {
-        playableDirector.stopped += OnCutsceneEnd;
+        TryGetComponent(out componenteTexTo);
+        TryGetComponent(out _audioSource);
+        mensagemOriginal = componenteTexTo.text;
+        componenteTexTo.text = "";
+    }
+    
+    private void OnEnable()
+    {
+        ImprimndoMensagem(mensagemOriginal);
+    }
+    
+    private void OnDisable()
+    {
+        componenteTexTo.text = mensagemOriginal;
+        StopAllCoroutines();
     }
 
-    private void OnCutsceneEnd(PlayableDirector director)
+    public void ImprimndoMensagem(string mensagem)
     {
-        // Carregar a nova cena
-        SceneManager.LoadScene("Tutorial"); // Substitua pelo nome da sua cena
+        if (gameObject.activeInHierarchy)
+        {
+            if (imprimindo) return;
+            imprimindo = true;
+            StartCoroutine(letraporletras(mensagem));
+        }
     }
 
-    void OnDestroy()
+    IEnumerator letraporletras(string mensagem)
     {
-        playableDirector.stopped -= OnCutsceneEnd;
+        string msg = "";
+        foreach (var letra in mensagem)
+        {
+            msg += letra;
+            componenteTexTo.text = msg;
+            _audioSource.Play();
+            yield return new WaitForSeconds(tempoentreletras);
+
+        }
+
+        imprimindo = false;
+        StopAllCoroutines();
     }
+    
 }
