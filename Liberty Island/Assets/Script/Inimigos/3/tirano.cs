@@ -21,8 +21,12 @@ public class Tirano : MonoBehaviour
     public int meleeDamage = 10;
 
     [Header("Alcances de Ataque")]
-    public float meleeAttackRange = 3f; // Alcance para ataque corpo a corpo
-    public float rangedAttackRange = 10f; // Alcance para ataque à distância
+    public float meleeAttackRange = 3f;
+    public float rangedAttackRange = 10f;
+
+    [Header("Cooldowns")]
+    public float rangedAttackCooldown = 3f; // Tempo de cooldown do ataque à distância
+    private float rangedAttackCooldownTimer = 0f; // Temporizador do cooldown
 
     private bool isAttacking = false;
     private bool alternateAttack = true;
@@ -39,20 +43,27 @@ public class Tirano : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+        // Atualiza o temporizador do cooldown
+        if (rangedAttackCooldownTimer > 0)
+        {
+            rangedAttackCooldownTimer -= Time.deltaTime;
+        }
+
         // Se não está atacando, controlar o movimento e decidir atacar
         if (!isAttacking)
         {
             if (distanceToPlayer <= meleeAttackRange)
             {
-                // Para e inicia ataque corpo a corpo
+                // Ataque corpo a corpo
                 animator.SetBool("IsRunning", false);
                 StartCoroutine(MeleeAttack());
             }
-            else if (distanceToPlayer <= rangedAttackRange)
+            else if (distanceToPlayer <= rangedAttackRange && rangedAttackCooldownTimer <= 0f)
             {
-                // Para e inicia ataque à distância
+                // Ataque à distância
                 animator.SetBool("IsRunning", false);
                 StartCoroutine(ThrowKnife());
+                rangedAttackCooldownTimer = rangedAttackCooldown; // Ativa o cooldown
             }
             else
             {
@@ -118,13 +129,24 @@ public class Tirano : MonoBehaviour
         isAttacking = true;
         animator.SetTrigger("ThrowKnifeTrigger");
 
+        // Criação da faca
         GameObject knife = Instantiate(knifePrefab, knifeSpawnPoint.position, Quaternion.identity);
-        Vector2 direction = (player.position - knifeSpawnPoint.position).normalized;
-        knife.GetComponent<Rigidbody2D>().velocity = direction * knifeSpeed;
+
+        // Determina a direção baseada no lado que o chefe está olhando
+        float direction = Mathf.Sign(transform.localScale.x); // Direção: -1 para esquerda, 1 para direita
+
+        // Ajusta a escala da faca para que ela "vire" para o lado correto
+        Vector3 knifeScale = knife.transform.localScale;
+        knifeScale.x = Mathf.Abs(knifeScale.x) * direction; // Inverte a escala X se necessário
+        knife.transform.localScale = knifeScale;
+
+        // Define a velocidade da faca
+        knife.GetComponent<Rigidbody2D>().velocity = new Vector2(direction * knifeSpeed, 0);
 
         yield return new WaitForSeconds(1f); // Pausa após o ataque
         isAttacking = false;
     }
+
 
     public void TakeDamage(int damage)
     {
@@ -149,9 +171,9 @@ public class Tirano : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, meleeAttackRange); // Range corpo a corpo
+        Gizmos.DrawWireSphere(transform.position, meleeAttackRange);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, rangedAttackRange); // Range ataque à distância
+        Gizmos.DrawWireSphere(transform.position, rangedAttackRange);
     }
 }
