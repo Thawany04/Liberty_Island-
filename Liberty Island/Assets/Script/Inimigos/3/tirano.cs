@@ -2,21 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tirano : MonoBehaviour
+public class Tirano : MonoBehaviour
 {
     private Animator animator;
     private bool isDead = false;
-    private bool facingRight = true; // Para controlar o lado que o inimigo está olhando
+    private bool facingRight = true;
 
     [Header("Configurações do Chefe")]
     public int maxHealth = 100;
     private int currentHealth;
 
     [Header("Referências")]
-    public Transform player; // Referência ao jogador
-    public GameObject knifePrefab; // Prefab da faca
-    public Transform knifeSpawnPoint; // Ponto de spawn da faca
+    public Transform player;
+    public GameObject knifePrefab;
+    public Transform knifeSpawnPoint;
     public float knifeSpeed = 10f;
+    public Collider2D meleeCollider;
+    public int meleeDamage = 10;
+
+    [Header("Alcances de Ataque")]
+    public float meleeAttackRange = 3f; // Alcance para ataque corpo a corpo
+    public float rangedAttackRange = 10f; // Alcance para ataque à distância
+
+    private bool isAttacking = false;
+    private bool alternateAttack = true;
 
     void Start()
     {
@@ -28,22 +37,34 @@ public class tirano : MonoBehaviour
     {
         if (isDead) return;
 
-        // Controle de movimento (Idle ou Run)
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distanceToPlayer > 3f)
+
+        // Se não está atacando, controlar o movimento e decidir atacar
+        if (!isAttacking)
         {
-            animator.SetBool("IsRunning", true);
-            MoveTowardsPlayer();
-        }
-        else
-        {
-            animator.SetBool("IsRunning", false);
+            if (distanceToPlayer <= meleeAttackRange)
+            {
+                // Para e inicia ataque corpo a corpo
+                animator.SetBool("IsRunning", false);
+                StartCoroutine(MeleeAttack());
+            }
+            else if (distanceToPlayer <= rangedAttackRange)
+            {
+                // Para e inicia ataque à distância
+                animator.SetBool("IsRunning", false);
+                StartCoroutine(ThrowKnife());
+            }
+            else
+            {
+                // Move em direção ao jogador
+                animator.SetBool("IsRunning", true);
+                MoveTowardsPlayer();
+            }
         }
     }
 
     void MoveTowardsPlayer()
     {
-        // Movimenta o inimigo em direção ao jogador
         transform.position = Vector2.MoveTowards(transform.position, player.position, 2f * Time.deltaTime);
 
         // Verifica a direção do jogador
@@ -59,30 +80,50 @@ public class tirano : MonoBehaviour
 
     void Flip()
     {
-        // Inverte a direção que o inimigo está olhando
         facingRight = !facingRight;
         Vector3 scale = transform.localScale;
-        scale.x *= 1; // Inverte a escala no eixo X
+        scale.x *= -1;
         transform.localScale = scale;
     }
 
-    public void MeleeAttack()
+    IEnumerator MeleeAttack()
     {
-        if (isDead) return;
-
+        isAttacking = true;
         animator.SetTrigger("MeleeAttackTrigger");
-        // Lógica do ataque corpo a corpo aqui
+
+        yield return new WaitForSeconds(0.5f);
+        ApplyMeleeDamage();
+
+        yield return new WaitForSeconds(0.5f);
+        ApplyMeleeDamage();
+
+        yield return new WaitForSeconds(1f); // Pausa após o ataque
+        isAttacking = false;
     }
 
-    public void ThrowKnife()
+    void ApplyMeleeDamage()
     {
-        if (isDead) return;
+        Collider2D[] hits = Physics2D.OverlapBoxAll(meleeCollider.bounds.center, meleeCollider.bounds.size, 0);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                hit.GetComponent<PlayerController>().Damager(meleeDamage);
+            }
+        }
+    }
 
+    IEnumerator ThrowKnife()
+    {
+        isAttacking = true;
         animator.SetTrigger("ThrowKnifeTrigger");
-        // Criação e disparo da faca
+
         GameObject knife = Instantiate(knifePrefab, knifeSpawnPoint.position, Quaternion.identity);
         Vector2 direction = (player.position - knifeSpawnPoint.position).normalized;
         knife.GetComponent<Rigidbody2D>().velocity = direction * knifeSpeed;
+
+        yield return new WaitForSeconds(1f); // Pausa após o ataque
+        isAttacking = false;
     }
 
     public void TakeDamage(int damage)
@@ -102,6 +143,15 @@ public class tirano : MonoBehaviour
     {
         isDead = true;
         animator.SetBool("IsDead", true);
-        // Outras lógicas de morte (desativar o chefe, recompensa, etc.)
+    }
+
+    // Gizmos para visualizar os alcances de ataque
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, meleeAttackRange); // Range corpo a corpo
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, rangedAttackRange); // Range ataque à distância
     }
 }
