@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class General : MonoBehaviour
 {
@@ -235,14 +236,16 @@ public class General : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            SceneManager.LoadScene("Fase 2");
         }
     }
-
+    
     void Die()
     {
         Debug.Log("General derrotado!");
         Destroy(gameObject);
     }
+    
 
     // Método para ativar a fase 2
     public void ActivatePhase2()

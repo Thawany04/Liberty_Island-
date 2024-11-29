@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class portal : MonoBehaviour
+public class portalllll : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,12 +13,10 @@ public class portal : MonoBehaviour
             Invoke("LoadScene", 0f);
         }
     }
-    
+
     // Método que carrega a cena após o atraso
     private void LoadScene()
     {
-        SceneManager.LoadScene("Boss1");
+        SceneManager.LoadScene("Boos2");
     }
 }
-
-

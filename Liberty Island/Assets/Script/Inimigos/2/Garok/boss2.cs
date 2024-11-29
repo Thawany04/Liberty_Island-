@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class boss2 : MonoBehaviour
 {
@@ -180,6 +182,7 @@ public class boss2 : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            SceneManager.LoadScene("Scenes/2/part 2 fase 2");
         }
     }
 
