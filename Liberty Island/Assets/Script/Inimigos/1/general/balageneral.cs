@@ -12,7 +12,7 @@ public class balageneral : MonoBehaviour
         Destroy(gameObject, tempoDeVida); // Destroi o projétil após o tempo de vida
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // Verifica se o projétil colidiu com o jogador
         if (collision.gameObject.CompareTag("Player"))
@@ -22,10 +22,11 @@ public class balageneral : MonoBehaviour
             if (player != null)
             {
                 player.Damager(dano); // Aplica o dano ao jogador
+                Destroy(gameObject);
             }
         }
 
         // Destrói o projétil ao colidir com qualquer objeto
-        Destroy(gameObject);
+        Destroy(gameObject,3f);
     }
 }

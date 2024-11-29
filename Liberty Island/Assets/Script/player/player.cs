@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip faca;
     public AudioClip corre;
     public AudioClip spada;
+    
+    public General general; // Referência ao General
+
 
     void Start()
     {
@@ -271,5 +274,15 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         Vector2 attackPosition = (Vector2)transform.position + attackOffset;
         Gizmos.DrawWireCube(attackPosition, attackRange);
+    }
+    
+    public void Morreu()
+    {
+        Debug.Log("Jogador morreu!");
+        if (general != null)
+        {
+            general.DesativarBarraDeVida();
+        }
+        // Aqui você também pode incluir o código para trocar de cena ou outras ações relacionadas à morte do jogador.
     }
 }

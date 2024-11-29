@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -254,4 +255,22 @@ public class General : MonoBehaviour
         isPhase2 = false;
         attackInterval /= phase2AttackSpeedMultiplier; // Restaura o intervalo de ataque
     }
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        PlayerController player = coll.gameObject.GetComponent<PlayerController>();
+        if (coll.gameObject.CompareTag("Player"))
+        {
+            player.Damager(1);
+        }
+    }
+    
+    public void DesativarBarraDeVida()
+    {
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(false);
+        }
+    }
+    
 }
