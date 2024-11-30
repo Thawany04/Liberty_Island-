@@ -170,7 +170,7 @@ MonoBehaviour:
   firePoint: {fileID: 1281121279}
   player: {fileID: 34882056}
   healthBar: {fileID: 372179007}
-  maxHealth: 39
+  maxHealth: 100
   phase2SpeedMultiplier: 1.5
   phase2AttackSpeedMultiplier: 0.5
 --- !u!95 &43889369
